@@ -117,7 +117,7 @@ namespace Game.AI
                     
                     RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, MAX_VISION_DIST);
                     if (hit2D && hit2D.collider.transform == player) {
-                        StateToChase(player);print("here");
+                        StateToChase(player);
                     }
                 }
             }

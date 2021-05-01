@@ -43,6 +43,7 @@ namespace Game.AI
         #region Unity Editor Functionality
             public void AddNode()
             {
+                Awake();
                 GameObject node = new GameObject();
                 node.name = $"Node {nodes.Length}";
                 node.transform.position = transform.position;
