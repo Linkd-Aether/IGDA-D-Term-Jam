@@ -11,7 +11,7 @@ namespace Game.AI
     public class EnemyAI : MonoBehaviour
     {
         // Constants
-        private enum State { PATROL, CHASE };
+        private enum State { PATROL, CHASE, PAUSE };
         private float MAX_CHASE_DIST = 10f;
         private float MAX_VISION_DIST = 10f;
 
@@ -48,26 +48,28 @@ namespace Game.AI
 
         private void FixedUpdate()
         {
-            if (state == State.CHASE) {
-                if (Vector2.Distance(target.transform.position, transform.position) > MAX_CHASE_DIST){
-                    StateToPatrol();
-                }
-            }
-
-            if (path != null) {
-                if (currentWaypoint >= path.vectorPath.Count) {
-                    if (state == State.PATROL) {
-                        PatrolNextTarget();
+            if (state != State.PAUSE) {
+                if (state == State.CHASE) {
+                    if (Vector2.Distance(target.transform.position, transform.position) > MAX_CHASE_DIST){
+                        StateToPatrol();
                     }
-                    return;
                 }
 
-                Vector2 dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
-                mover.UpdateMovement(dir);
+                if (path != null) {
+                    if (currentWaypoint >= path.vectorPath.Count) {
+                        if (state == State.PATROL) {
+                            PatrolNextTarget();
+                        }
+                        return;
+                    }
 
-                float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-                if (distance < nextWaypointDistance) {
-                    currentWaypoint++;
+                    Vector2 dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
+                    mover.UpdateMovement(dir);
+
+                    float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+                    if (distance < nextWaypointDistance) {
+                        currentWaypoint++;
+                    }
                 }
             }
         }
@@ -99,6 +101,15 @@ namespace Game.AI
         #endregion
 
         #region State Change
+            // Player has been caught, temporary PAUSE before resuming PATROl
+            public IEnumerator KilledPlayer(float delay) 
+            {
+                mover.UpdateMovement(Vector2.zero);
+                state = State.PAUSE;
+                yield return new WaitForSeconds(delay);
+                StateToPatrol();
+            }
+
             // Change to default PATROL state
             private void StateToPatrol() 
             {
@@ -117,7 +128,7 @@ namespace Game.AI
                     
                     RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, MAX_VISION_DIST);
                     if (hit2D && hit2D.collider.transform == player) {
-                        StateToChase(player);print("here");
+                        StateToChase(player);
                     }
                 }
             }
