@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Experimental;
 using UnityEngine;
-
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Game.Lighting 
 {
@@ -9,12 +10,11 @@ namespace Game.Lighting
     public class Lantern : Lightable
     {
         // Components & References
-        private SpriteRenderer spriteRenderer;
+        private Light2D lightObj;
 
-        
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            lightObj = GetComponent<Light2D>();
         }
 
         #region Lighting State Changes
@@ -25,13 +25,14 @@ namespace Game.Lighting
 
             public override void LightOn() {
                 base.LightOn();
-                spriteRenderer.color = Color.yellow;
+                lightObj.intensity = 3;
             }
 
             public override void LightOff() {
                 base.LightOff();
-                spriteRenderer.color = Color.black;
+                lightObj.intensity = 0;
             }
         #endregion
+
     }
 }
