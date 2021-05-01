@@ -6,9 +6,10 @@ namespace Game.Lighting
 {
     public class Lamp : Lightable
     {
-        // Constants
-        private float DISTANCE_TO_LIGHT = 1.5f;
-        
+        // Variables
+        private float lightDistance = 1.5f;
+        private bool proximity = false;
+
         // Components & References
         private static Lantern lantern;
 
@@ -25,9 +26,21 @@ namespace Game.Lighting
 
         private void Update()
         {
-            if (Vector2.Distance(lantern.transform.position, this.transform.position) < DISTANCE_TO_LIGHT) {
+            if (Vector2.Distance(lantern.transform.position, this.transform.position) < lightDistance) {
                 if (lantern.isLit) LightOn();
+            } else if (isLit && proximity) {
+                LightOff();
             }
+        }
+
+        private void OnDrawGizmos() {
+            Awake();
+            Gizmos.DrawWireSphere(transform.position, lightDistance);
+        }
+
+        public void SetProximity(float distance) {
+            proximity = true;
+            lightDistance = distance;
         }
     }
 }

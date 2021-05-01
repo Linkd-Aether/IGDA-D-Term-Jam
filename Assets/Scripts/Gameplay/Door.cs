@@ -7,8 +7,16 @@ namespace Game.Gameplay
 {
     public class Door : LampMechanic
     {
+        // Constants
+        private static Color PROXIMITY_LAMP_COLOR = Color.red;
+
         // Variables
-        private bool closed = true;
+        [Header("Door Status")]
+        public bool closed = true;
+
+        [Header("Puzzle Type")] 
+        public bool proximityDoorPuzzle;
+        public float proximityDistance;
 
         // Components & References
         private Collider2D doorCollider;
@@ -18,9 +26,13 @@ namespace Game.Gameplay
         {
             doorCollider = GetComponent<Collider2D>();
             base.Awake();
+
+            if (proximityDoorPuzzle) {
+                SetProximityLamps(proximityDistance);
+                ChangeLampColors(PROXIMITY_LAMP_COLOR);
+            }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (closed && AllLampsLit()) OpenDoor();

@@ -14,7 +14,7 @@ namespace Game.Gameplay
             Door door = (Door) target;
 
             DrawDefaultInspector();
-
+            
             if(GUILayout.Button("Add Lamp")) door.AddLamp();
             if(GUILayout.Button("Remove Lamp")) door.RemoveLamp();
         }
