@@ -9,9 +9,9 @@ namespace Game.Lighting
     [RequireComponent(typeof(SpriteRenderer))]
     public class Lantern : Lightable
     {
-        protected override void Start() {
+        protected override void Awake() {
             MIN_INTENSITY = .5f;
-            base.Start();
+            base.Awake();
         }
 
         #region Lighting State Changes

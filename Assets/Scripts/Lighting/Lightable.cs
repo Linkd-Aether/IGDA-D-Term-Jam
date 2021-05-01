@@ -22,7 +22,7 @@ namespace Game.Lighting
         protected Light2D lightObj;
 
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             lightObj = GetComponent<Light2D>();
             LightOff();
@@ -38,6 +38,10 @@ namespace Game.Lighting
             isLit = false;
             lightObj.intensity = MIN_INTENSITY;
             lightObj.pointLightOuterRadius = MIN_RADIUS;
+        }
+
+        public virtual void SetLightColor(Color color) {
+            lightObj.color = color;
         }
     }
 }

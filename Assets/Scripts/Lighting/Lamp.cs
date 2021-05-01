@@ -13,14 +13,14 @@ namespace Game.Lighting
         private static Lantern lantern;
 
 
-        private void Awake() {
+        protected override void Awake() {
             lantern = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Lantern>();
+            base.Awake();
         }
 
-        protected override void Start() {
+        protected void Start() {
             MAX_INTENSITY = 1f;
             MAX_RADIUS = 5f;
-            base.Start();
         }
 
         private void Update()

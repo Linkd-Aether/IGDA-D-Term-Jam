@@ -4,7 +4,7 @@ using UnityEngine;
 using Game.Control;
 using Game.Lighting;
 using Game.Utils;
-using Game.Movement;
+using Game.AI;
 
 
 namespace Game.Gameplay
@@ -14,6 +14,8 @@ namespace Game.Gameplay
     {
         // Constants
         private float DEATH_TIME = 2f;
+        private float RESPAWN_WAIT = 2f;
+        private float RESPAWN_TIME = 1f;
 
         // Variables
         private bool alive = true;
@@ -23,12 +25,16 @@ namespace Game.Gameplay
         private Collider2D playerCollider;
         private Lantern lantern;
 
+        public RespawnPoint respawn;
+
 
         private void Awake() 
         {
             controller = GetComponent<InputController>();
             playerCollider = GetComponent<Collider2D>();
             lantern = GetComponentInChildren<Lantern>();
+
+            if (respawn == null) respawn = RespawnPoint.GetInitRespawn();
         }
         
         private void Update() 
@@ -39,21 +45,33 @@ namespace Game.Gameplay
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.gameObject.tag == "Enemy") {
-                PlayerDeath();
+                Transform enemy = collision.collider.transform;
+
+                StartCoroutine(PlayerDeath());
+                StartCoroutine(enemy.GetComponent<EnemyAI>().KilledPlayer(DEATH_TIME));
+                enemy.up = (transform.position - enemy.position);
             }
         }        
 
-        private void PlayerDeath() 
+        private IEnumerator PlayerDeath() 
         {
             controller.StopInput();
-
             alive = false;
             playerCollider.enabled = false;
+            yield return StartCoroutine(UtilFunctions.LerpCoroutine(PlayerFade, 1, 0, DEATH_TIME));
             
-            StartCoroutine(UtilFunctions.LerpCoroutine(DeathFade, 1, 0, DEATH_TIME));
+            lantern.LightOff();
+            yield return new WaitForSeconds(RESPAWN_WAIT);
+
+            transform.position = respawn.transform.position;
+            yield return StartCoroutine(UtilFunctions.LerpCoroutine(PlayerFade, 0, 1, RESPAWN_TIME));
+
+            playerCollider.enabled = true;
+            controller.StartInput();
+            alive = true;    
         }
 
-        private void DeathFade(float lerpValue) {
+        private void PlayerFade(float lerpValue) {
             lantern.SetLightFraction(lerpValue);
             
             foreach (SpriteRenderer sprite in GetComponentsInChildren<SpriteRenderer>()) {

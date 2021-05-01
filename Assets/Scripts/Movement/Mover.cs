@@ -41,8 +41,8 @@ namespace Game.Movement
             animator.SetBool("Moving", moving);
         }
 
-        public void StopAnimation() {
-            animator.enabled = false;
+        public void UpdateAnimator(bool state) {
+            animator.enabled = state;
         }
     }
 }

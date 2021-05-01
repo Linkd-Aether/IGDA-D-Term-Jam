@@ -29,9 +29,14 @@ namespace Game.Control
             }
         }
 
+        public void StartInput() 
+        {
+            mover.UpdateAnimator(true);
+        }
+
         public void StopInput() 
         {
-            mover.StopAnimation();
+            mover.UpdateAnimator(false);
             mover.UpdateMovement(Vector2.zero);
         }
     }
