@@ -38,8 +38,8 @@ namespace Game.Lighting
             Gizmos.DrawWireSphere(transform.position, lightDistance);
         }
 
-        public void SetProximity(float distance) {
-            proximity = true;
+        public void SetProximity(bool state, float distance) {
+            proximity = state;
             lightDistance = distance;
         }
     }
