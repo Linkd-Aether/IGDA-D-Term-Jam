@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Movement 
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Mover : MonoBehaviour
     {
         // Variables
@@ -19,7 +19,7 @@ namespace Game.Movement
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         private void FixedUpdate() 

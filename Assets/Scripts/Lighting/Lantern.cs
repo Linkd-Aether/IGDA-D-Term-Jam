@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.Lighting 
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class Lamp : Lightable
+    public class Lantern : Lightable
     {
         // Components & References
         private SpriteRenderer spriteRenderer;

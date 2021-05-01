@@ -10,12 +10,12 @@ namespace Game.Control
     public class InputController : MonoBehaviour
     {
         private Mover mover;
-        private Lamp lantern;
+        private Lantern lantern;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
-            lantern = GetComponentInChildren<Lamp>();
+            lantern = GetComponentInChildren<Lantern>();
         }
 
 

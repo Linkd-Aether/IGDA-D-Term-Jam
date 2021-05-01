@@ -35,6 +35,7 @@ namespace Game.AI
         }
 
         public Transform NextNode() {
+            if (nodes.Length == 0) return this.transform;
             currentNode = (currentNode + 1) % nodes.Length;
             return nodes[currentNode];
         }
