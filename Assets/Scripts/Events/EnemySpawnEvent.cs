@@ -14,22 +14,22 @@ namespace Game.Events
         public float spawnDelay;
         
         // Components & References
-        public EnemySpawner enemySpawner;
+        private EnemySpawner enemySpawner;
         
         
-        void Start()
+        private void Start()
         {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
+            enemySpawner = GetComponentInChildren<EnemySpawner>();
         }
 
         public override void RunEvent() {
+            StartCoroutine(EnemySpawnScene());
+        }
 
+        private IEnumerator EnemySpawnScene() {
+            yield return null;
+            enemySpawner.SpawnEnemy();
+            yield return null;
         }
     }
 }

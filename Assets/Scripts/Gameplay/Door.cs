@@ -14,9 +14,9 @@ namespace Game.Gameplay
         [Header("Door Status")]
         public bool closed = true;
 
-        [Header("Puzzle Type")] 
-        public bool proximityDoorPuzzle;
-        public float proximityDistance;
+        [Header("Puzzle Variables")] 
+        public bool proximityDoorPuzzle = false;
+        public float lightingDistance = 1.5f;
 
         // Components & References
         private Collider2D doorCollider;
@@ -27,7 +27,8 @@ namespace Game.Gameplay
             doorCollider = GetComponent<Collider2D>();
             base.Awake();
 
-            SetProximityLamps(proximityDoorPuzzle, proximityDistance);
+            SetProximityLamps(proximityDoorPuzzle, lightingDistance);
+            Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
             if (proximityDoorPuzzle) {
                 ChangeLampColors(PROXIMITY_LAMP_COLOR);
             }    

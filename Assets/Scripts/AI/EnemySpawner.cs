@@ -8,16 +8,25 @@ public class EnemySpawner : MonoBehaviour
     private ParticleSystem spawnParticles;
     private Animation spawnAnimation;
 
+    private Transform enemy;
 
     private void Start()
     {
         spawnAnimation = GetComponent<Animation>();
         spawnParticles = GetComponentInChildren<ParticleSystem>();
+
+        foreach (Transform child in transform) {
+            if (child.gameObject.tag == "Enemy") {
+                enemy = child;
+            }
+        }
+        enemy.gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void SpawnEnemy()
     {
-        if (Input.GetKeyDown(KeyCode.E)) spawnAnimation.Play();
+        enemy.gameObject.SetActive(true);
+        spawnAnimation.Play();
     }
 
     public void PlayParticleSystem() 
@@ -27,12 +36,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void DetachSpawn() 
     {
-        Transform enemy = null;
-        foreach (Transform child in transform) {
-            if (child.gameObject.tag == "Enemy") {
-                enemy = child;
-            }
-        }
+
         if (enemy != null) {
             enemy.parent = transform.parent;
             enemy.GetComponentInChildren<Animator>().enabled = true;
