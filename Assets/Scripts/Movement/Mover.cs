@@ -30,8 +30,8 @@ namespace Game.Movement
         private void Move() 
         {
             if (moving) {
-                rb.MovePosition(rb.position + moveDirection * moveSpd * Time.fixedDeltaTime);
-                transform.up = moveDirection;
+                rb.AddForce(moveDirection * moveSpd);
+                transform.up = rb.velocity.normalized;
             }
         }
 
