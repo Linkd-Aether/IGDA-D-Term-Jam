@@ -27,10 +27,10 @@ namespace Game.Gameplay
             doorCollider = GetComponent<Collider2D>();
             base.Awake();
 
+            SetProximityLamps(proximityDoorPuzzle, proximityDistance);
             if (proximityDoorPuzzle) {
-                SetProximityLamps(proximityDistance);
                 ChangeLampColors(PROXIMITY_LAMP_COLOR);
-            }
+            }    
         }
 
         void Update()

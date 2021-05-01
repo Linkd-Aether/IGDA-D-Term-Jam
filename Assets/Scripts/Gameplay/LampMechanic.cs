@@ -9,6 +9,7 @@ namespace Game.Gameplay
     {
         // Constants
         private static string LAMP_PREFAB = "Prefabs/Interactables/Lamp";
+        private static Color DEFAULT_LAMP_COLOR = Color.white;
 
         // Components & References
         protected Transform[] lamps;
@@ -23,6 +24,8 @@ namespace Game.Gameplay
                 lamps[childNum] = child;
                 childNum++;
             }
+
+            ChangeLampColors(DEFAULT_LAMP_COLOR);
         }
         
         private void OnDrawGizmos() {
@@ -63,10 +66,10 @@ namespace Game.Gameplay
                 }
             }
 
-            protected void SetProximityLamps(float distance) {
+            protected void SetProximityLamps(bool state, float distance) {
                 foreach (Transform lamp in lamps) {
                     Lamp lampRef = lamp.GetComponent<Lamp>();
-                    lampRef.SetProximity(distance);
+                    lampRef.SetProximity(state, distance);
                 }
             }
         #endregion
