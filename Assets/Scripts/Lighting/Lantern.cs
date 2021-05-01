@@ -19,7 +19,20 @@ namespace Game.Lighting
                 if (isLit) LightOff();
                 else LightOn();
             }
-        #endregion
 
+            public void SetLightFraction(float fraction) {
+                float currentIntensity, currentRadius;
+                if (isLit) {
+                    currentIntensity = MAX_INTENSITY;
+                    currentRadius = MAX_RADIUS;
+                } else {
+                    currentIntensity = MIN_INTENSITY;
+                    currentRadius = MIN_RADIUS;
+                }
+                
+                lightObj.intensity = currentIntensity * fraction;
+                lightObj.pointLightOuterRadius = currentRadius * fraction;
+            }
+        #endregion
     }
 }

@@ -12,22 +12,27 @@ namespace Game.Control
         private Mover mover;
         private Lantern lantern;
 
+
         private void Start()
         {
             mover = GetComponent<Mover>();
             lantern = GetComponentInChildren<Lantern>();
         }
 
-
-        private void Update()
+        public void HandleInput()
         {
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             mover.UpdateMovement(input.normalized);
 
-
             if (Input.GetKeyDown(KeyCode.Q)) {
                 lantern.ChangeLight();
             }
+        }
+
+        public void StopInput() 
+        {
+            mover.StopAnimation();
+            mover.UpdateMovement(Vector2.zero);
         }
     }
 }

@@ -40,5 +40,9 @@ namespace Game.Movement
             moving = (direction != Vector2.zero);
             animator.SetBool("Moving", moving);
         }
+
+        public void StopAnimation() {
+            animator.enabled = false;
+        }
     }
 }
