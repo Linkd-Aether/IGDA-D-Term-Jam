@@ -62,6 +62,13 @@ namespace Game.Gameplay
                     lampRef.SetLightColor(color);
                 }
             }
+
+            protected void SetProximityLamps(float distance) {
+                foreach (Transform lamp in lamps) {
+                    Lamp lampRef = lamp.GetComponent<Lamp>();
+                    lampRef.SetProximity(distance);
+                }
+            }
         #endregion
 
         #region Unity Editor Functionality

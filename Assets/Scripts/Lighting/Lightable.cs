@@ -41,6 +41,7 @@ namespace Game.Lighting
         }
 
         public virtual void SetLightColor(Color color) {
+            if (lightObj == null) Awake();
             lightObj.color = color;
         }
     }
