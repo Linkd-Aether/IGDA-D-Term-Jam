@@ -265,7 +265,7 @@ PrefabInstance:
     - target: {fileID: 164916186171398581, guid: 5c5e188ef14f009408360e5713dc44ff,
         type: 3}
       propertyPath: m_Name
-      value: Lamp
+      value: Lantern
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c5e188ef14f009408360e5713dc44ff, type: 3}

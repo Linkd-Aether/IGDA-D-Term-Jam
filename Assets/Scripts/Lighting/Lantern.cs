@@ -2,21 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.Experimental;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 namespace Game.Lighting 
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class Lantern : Lightable
     {
-        // Components & References
-        private Light2D lightObj;
-
-        private void Start()
-        {
-            lightObj = GetComponent<Light2D>();
-        }
-
         #region Lighting State Changes
             public void ChangeLight() {
                 if (isLit) LightOff();
