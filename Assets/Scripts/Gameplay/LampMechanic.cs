@@ -24,8 +24,6 @@ namespace Game.Gameplay
                 lamps[childNum] = child;
                 childNum++;
             }
-
-            ChangeLampColors(DEFAULT_LAMP_COLOR);
         }
         
         private void OnDrawGizmos() {

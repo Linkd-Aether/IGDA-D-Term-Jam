@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closed: 1
-  proximityDoorPuzzle: 1
+  lampless: 0
+  proximityDoorPuzzle: 0
   lightingDistance: 1.5
