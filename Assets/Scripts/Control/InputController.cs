@@ -22,7 +22,8 @@ namespace Game.Control
         private void Update()
         {
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (input != Vector2.zero) mover.Move(input.normalized);
+            mover.UpdateMovement(input.normalized);
+
 
             if (Input.GetKeyDown(KeyCode.Q)) {
                 lantern.ChangeLight();

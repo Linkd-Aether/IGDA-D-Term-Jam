@@ -57,7 +57,7 @@ namespace Game.AI
                 }
 
                 Vector2 dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
-                mover.Move(dir);
+                mover.UpdateMovement(dir);
 
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
                 if (distance < nextWaypointDistance) {
