@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using Game.Movement;
+using Game.Lighting;
 
 namespace Game.AI 
 {
@@ -12,6 +13,7 @@ namespace Game.AI
         // Constants
         private enum State { PATROL, CHASE };
         private float MAX_CHASE_DIST = 10f;
+        private float MAX_VISION_DIST = 10f;
 
         // Variables
         private int currentWaypoint = 0;
@@ -24,17 +26,21 @@ namespace Game.AI
         private Path path;
         private Rigidbody2D rb;
         private Mover mover;
-
         private EnemyPath patrolPath;
         private Transform target;
 
+        private static Transform player;
+
+
+        private void Awake() {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
 
         private void Start()
         {
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             mover = GetComponent<Mover>();
-
             patrolPath = transform.parent.GetComponentInChildren<EnemyPath>();
 
             StateToPatrol();
@@ -99,16 +105,40 @@ namespace Game.AI
                 CancelInvoke();
                 state = State.PATROL;
                 PatrolNextTarget();
+                InvokeRepeating("PlayerSearch", 0f, 0.5f);
+            }
+
+            // Search for player, start CHASE if found
+            private void PlayerSearch() {
+                Lantern lantern = player.GetComponentInChildren<Lantern>();
+
+                if (lantern.isLit) {
+                    Vector2 rayDirection = player.position - transform.position;
+                    
+                    RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, MAX_VISION_DIST);
+                    if (hit2D && hit2D.collider.transform == player) {
+                        StateToChase(player);print("here");
+                    }
+                }
             }
 
             // Change to pursuit CHASE state
             private void StateToChase(Transform chaseTarget)
             {
+                CancelInvoke();
                 state = State.CHASE;
                 target = chaseTarget;
                 InvokeRepeating("UpdatePath", 0f, 0.5f);
             }
         #endregion
 
+        #region Gizmos
+        private void OnDrawGizmos() {
+            Awake();
+            // PlayerSearch Ray
+            Vector2 rayDirection = (player.position - transform.position).normalized;
+            Gizmos.DrawLine(transform.position, (Vector2) transform.position + rayDirection * MAX_VISION_DIST);
+        }
+        #endregion
     }
 }

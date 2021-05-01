@@ -8,7 +8,7 @@ namespace Game.Lighting
     public abstract class Lightable : MonoBehaviour
     {
         // Variables
-        protected bool isLit = false;
+        public bool isLit = false;
         
 
         public virtual void LightOn() {
