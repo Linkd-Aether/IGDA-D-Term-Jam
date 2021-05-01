@@ -28,7 +28,7 @@ namespace Game.Gameplay
             base.Awake();
 
             SetProximityLamps(proximityDoorPuzzle, lightingDistance);
-            Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
+            if (lightingDistance == 0) Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
             if (proximityDoorPuzzle) {
                 ChangeLampColors(PROXIMITY_LAMP_COLOR);
             }    
