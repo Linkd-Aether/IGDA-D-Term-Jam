@@ -67,7 +67,7 @@ namespace Game.Lighting
             lightObj.pointLightOuterRadius = outerRadius;
         }
 
-        protected void LightSetting(float percent) {
+        public void LightSetting(float percent) {
             float intensity = MIN_INTENSITY + (MAX_INTENSITY - MIN_INTENSITY) * percent;
             float innerRadius = MIN_INNER_RADIUS + (MAX_INNER_RADIUS - MIN_INNER_RADIUS) * percent;
             float outerRadius = MIN_OUTER_RADIUS + (MAX_OUTER_RADIUS - MIN_OUTER_RADIUS) * percent;
