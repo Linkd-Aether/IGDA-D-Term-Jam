@@ -12,14 +12,32 @@ namespace Game.AI
     {
         // Constants
         private enum State { PATROL, CHASE, PAUSE };
-        private float MAX_CHASE_DIST = 10f;
-        private float MAX_VISION_DIST = 10f;
+
+        private float PLAYER_CHASE_SEARCH_CALL_FREQ = .25f;
 
         // Variables
         private int currentWaypoint = 0;
-        public float nextWaypointDistance = 2f;
+        private float nextWaypointDistance = 2f;
+        private float timeSinceLastSeenPlayer = 0f;
+        private Vector2 startChase;
 
         private State state = State.PATROL;
+
+        [Header("Max Distance To Chase")]
+        [Tooltip("Enable a max distance the enemy will Chase a target.")] 
+        public bool maxDistEnabled = true;
+        [Tooltip("The max distance the enemy will pursue a target from where it begins a Chase.")] 
+        public float maxChaseDist = 50f;
+
+        [Header("Other Settings")]
+        [Tooltip("The max distance an enemy can see a target from.")] 
+        public float maxVisionDist = 10f;
+        [Tooltip("The max distance from a target in a Chase before the enemy returns to its Patrol.")] 
+        public float maxDistFromTarget = 10f;
+        [Tooltip("The max amount of time the player will pursue an enemy that it cannot directly see.")] 
+        public float maxSearchTime = 3f;
+        [Tooltip("Length of time pausing before return to Patrol.")] 
+        public float pauseTime = 2f;
 
         // Components & References
         private Seeker seeker;
@@ -50,8 +68,12 @@ namespace Game.AI
         {
             if (state != State.PAUSE) {
                 if (state == State.CHASE) {
-                    if (Vector2.Distance(target.transform.position, transform.position) > MAX_CHASE_DIST){
-                        StateToPatrol();
+                    if (Vector2.Distance(target.transform.position, transform.position) > maxDistFromTarget){
+                        StartCoroutine(StateToPause(pauseTime));
+                        return;
+                    } else if (maxDistEnabled && Vector2.Distance(transform.position, startChase) > maxChaseDist) {
+                        StartCoroutine(StateToPause(pauseTime));
+                        return;
                     }
                 }
 
@@ -101,9 +123,10 @@ namespace Game.AI
         #endregion
 
         #region State Change
-            // Player has been caught, temporary PAUSE before resuming PATROl
-            public IEnumerator KilledPlayer(float delay) 
+            // Temporary PAUSE before resuming PATROL
+            public IEnumerator StateToPause(float delay) 
             {
+                CancelInvoke();
                 mover.UpdateMovement(Vector2.zero);
                 state = State.PAUSE;
                 yield return new WaitForSeconds(delay);
@@ -116,20 +139,33 @@ namespace Game.AI
                 CancelInvoke();
                 state = State.PATROL;
                 PatrolNextTarget();
-                InvokeRepeating("PlayerSearch", 0f, 0.5f);
+                InvokeRepeating("PlayerPatrolSearch", 0f, 0.5f);
             }
 
             // Search for player, start CHASE if found
-            private void PlayerSearch() {
+            private void PlayerPatrolSearch() {
                 Lantern lantern = player.GetComponentInChildren<Lantern>();
 
                 if (lantern.isLit) {
                     Vector2 rayDirection = player.position - transform.position;
                     
-                    RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, MAX_VISION_DIST);
+                    RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, maxVisionDist);
                     if (hit2D && hit2D.collider.transform == player) {
                         StateToChase(player);
                     }
+                }
+            }
+
+            // Search for player, leave CHASE if not found for long enough time
+            private void PlayerChaseSearch() {
+                Vector2 rayDirection = player.position - transform.position;
+                
+                RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, maxVisionDist);
+                if (hit2D && hit2D.collider.transform == player) timeSinceLastSeenPlayer = 0;
+                else timeSinceLastSeenPlayer += PLAYER_CHASE_SEARCH_CALL_FREQ;
+
+                if (timeSinceLastSeenPlayer > maxSearchTime) {
+                    StartCoroutine(StateToPause(pauseTime));
                 }
             }
 
@@ -139,17 +175,21 @@ namespace Game.AI
                 CancelInvoke();
                 state = State.CHASE;
                 target = chaseTarget;
+                startChase = transform.position;
                 InvokeRepeating("UpdatePath", 0f, 0.5f);
+
+                timeSinceLastSeenPlayer = 0;
+                InvokeRepeating("PlayerChaseSearch", 0f, PLAYER_CHASE_SEARCH_CALL_FREQ);
             }
         #endregion
 
         #region Gizmos
-        private void OnDrawGizmos() {
-            Awake();
-            // PlayerSearch Ray
-            Vector2 rayDirection = (player.position - transform.position).normalized;
-            Gizmos.DrawLine(transform.position, (Vector2) transform.position + rayDirection * MAX_VISION_DIST);
-        }
+            private void OnDrawGizmos() {
+                Awake();
+                // PlayerSearch Ray
+                Vector2 rayDirection = (player.position - transform.position).normalized;
+                Gizmos.DrawLine(transform.position, (Vector2) transform.position + rayDirection * maxVisionDist);
+            }
         #endregion
     }
 }
