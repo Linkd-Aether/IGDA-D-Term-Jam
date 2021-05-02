@@ -15,12 +15,12 @@ namespace Game.Gameplay
         private static Color RESPAWN_LAMP_COLOR = Color.blue;
         private static Color DEACTIVE_SPAWN_COLOR = new Color(0,0,0,50f/255f);
         private static Color ACTIVE_SPAWN_COLOR = new Color(100f/255f, 100f/255f, 1, 150f/255f);
-        private static float COLOR_CHANGE_LENGTH = 0.5f;
+        private static float COLOR_CHANGE_TIME = 0.5f;
 
         // Variables
         public bool initialSpawn = false;
         public bool hiddenSpawn = false;
-        private bool isActive;
+        private bool isActive = false;
 
         // Components & References
         private static Player player;
@@ -98,7 +98,7 @@ namespace Game.Gameplay
                     int[] values = {0, 1};
                     if (!state) Array.Reverse(values);
 
-                    UtilFunctions.LerpCoroutine(ColorChange, values[0], values[1], COLOR_CHANGE_LENGTH);
+                    StartCoroutine(UtilFunctions.LerpCoroutine(ColorChange, values[0], values[1], COLOR_CHANGE_TIME));
                 }
             }
 
