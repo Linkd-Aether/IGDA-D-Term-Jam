@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 3305157776542015098}
   - component: {fileID: 6341283388792908260}
   - component: {fileID: 3602028803965574902}
-  - component: {fileID: 3471837411501793529}
   - component: {fileID: 1236083338188610042}
+  - component: {fileID: 7197160663800030616}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -197,19 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07751514ef2d9564195f628b1b42b5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3471837411501793529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3305157776542015095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c5fa7c4db36684c9b32043d10bec21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: f1d68aac0ca0b0740aaa8a68eccda3db, type: 3}
 --- !u!82 &1236083338188610042
 AudioSource:
   m_ObjectHideFlags: 0
@@ -306,3 +293,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7197160663800030616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305157776542015095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9374be17758ebc8439a0d8733170dd65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: f1d68aac0ca0b0740aaa8a68eccda3db, type: 3}

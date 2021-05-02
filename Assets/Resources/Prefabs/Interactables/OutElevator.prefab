@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 905384020289305980}
   - component: {fileID: 6254479619488628050}
   - component: {fileID: 7685043252831110190}
-  - component: {fileID: 1955184754378143426}
   - component: {fileID: 5278371824390789005}
+  - component: {fileID: 3098097297668857021}
   m_Layer: 0
   m_Name: OutElevator
   m_TagString: Untagged
@@ -77,19 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b042c54e0b0c2147bf7226d640a64ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1955184754378143426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80636648097081660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c5fa7c4db36684c9b32043d10bec21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: b0292f1b30e255044b996f5e1c9499c7, type: 3}
 --- !u!82 &5278371824390789005
 AudioSource:
   m_ObjectHideFlags: 0
@@ -186,6 +173,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3098097297668857021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80636648097081660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9374be17758ebc8439a0d8733170dd65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: b0292f1b30e255044b996f5e1c9499c7, type: 3}
 --- !u!1 &2188816797927520235
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   - {x: -2.5, y: -0.4, z: 0}
   m_ShapePathHash: 90007821
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43898
+  m_InstanceId: 28548
 --- !u!1 &3804052029061970288
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   - {x: -2.5, y: -0.4, z: 0}
   m_ShapePathHash: 90007821
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43884
+  m_InstanceId: 28534
 --- !u!1 &6930434839685345032
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
   - {x: -2.5, y: -0.4, z: 0}
   m_ShapePathHash: 90007821
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43888
+  m_InstanceId: 28538
 --- !u!1 &7300149685904469550
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,4 +531,4 @@ MonoBehaviour:
   - {x: -2.5, y: -0.4, z: 0}
   m_ShapePathHash: 90007821
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43874
+  m_InstanceId: 28524
