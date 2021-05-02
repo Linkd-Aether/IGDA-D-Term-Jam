@@ -71,6 +71,7 @@ namespace Game.Lighting
                     return true;    
                 }
 
+                // More Angled View
                 BoxCollider2D boxCollider2D = lamp.GetComponent<BoxCollider2D>();
                 float lampHeight = boxCollider2D.size.y;
                 Vector2 top = (Vector2) lamp.transform.position + (Vector2.up * lampHeight/2);
@@ -81,7 +82,6 @@ namespace Game.Lighting
                     hit2D = Physics2D.Raycast(transform.parent.position, rayDir, lamp.lightDistance);
 
                     if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
-                        Debug.DrawRay(transform.parent.position, rayDir.normalized*lamp.lightDistance, Color.green);
                         return true;
                     }
                     interpolation += .1f;

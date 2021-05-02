@@ -8,8 +8,13 @@ namespace Game.Events
 {
     public class CameraFollowEvent : Event
     {
+        // Constants
+        private float TRANSFER_TARGET = .5f;
+
         // Variables
         public Transform target;
+        public float moveSpeed =  7.5f;
+        private GameObject transitionObject;
         
         // Components & References
         private CinemachineVirtualCamera followCamera; 
@@ -23,8 +28,21 @@ namespace Game.Events
         public override void RunEvent()
         {
             if (target != null) {
-                followCamera.Follow = target;
+                transitionObject = new GameObject();
+                transitionObject.transform.position = followCamera.Follow.transform.position;
+                followCamera.Follow = transitionObject.transform;
+                StartCoroutine(CameraTransfer());
             }
+        }
+
+        private IEnumerator CameraTransfer() {
+            while (Vector2.Distance(transitionObject.transform.position, target.position) > TRANSFER_TARGET) {
+                transitionObject.transform.position = Vector2.MoveTowards(transitionObject.transform.position, target.position, moveSpeed * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate();
+            }
+            
+            followCamera.Follow = target;
+            Destroy(transitionObject);
         }
     }
 }
