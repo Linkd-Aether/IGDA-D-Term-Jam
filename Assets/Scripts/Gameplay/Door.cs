@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Game.Lighting;
+using Game.Events;
 
 namespace Game.Gameplay 
 {
+    [RequireComponent(typeof(DoorTrigger))]
     public class Door : LampMechanic
     {
         // Variables
@@ -18,11 +20,13 @@ namespace Game.Gameplay
 
         // Components & References
         private Collider2D doorCollider;
+        private DoorTrigger trigger;
 
         
         protected override void Awake() 
         {
             doorCollider = GetComponent<Collider2D>();
+            trigger = GetComponent<DoorTrigger>();
 
             base.Awake();
 
@@ -45,6 +49,8 @@ namespace Game.Gameplay
             closed = false;
             doorCollider.enabled = false;
 
+            trigger.RunEvents(trigger.openEvents);
+
             GetComponent<SpriteRenderer>().color = Color.gray;
             GetComponent<ShadowCaster2D>().castsShadows = false;
         }
@@ -53,6 +59,8 @@ namespace Game.Gameplay
         {
             closed = true;
             doorCollider.enabled = true;
+
+            trigger.RunEvents(trigger.closeEvents);
 
             GetComponent<SpriteRenderer>().color = Color.white;
             GetComponent<ShadowCaster2D>().castsShadows = true;
