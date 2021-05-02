@@ -131,6 +131,7 @@ namespace Game.AI
             {
                 if (killedPlayer) enemyControl.KillPlayerScream();
                 else enemyControl.AbandonChaseScream();
+                enemyControl.EndChase();
                 CancelInvoke();
                 mover.UpdateMovement(Vector2.zero);
                 state = State.PAUSE;
@@ -157,6 +158,7 @@ namespace Game.AI
                     RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, maxVisionDist);
                     if (hit2D && hit2D.collider.transform == player) {
                         enemyControl.BeginChaseScream();
+                        enemyControl.BeginChase();
                         StateToChase(player);
                     }
                 }

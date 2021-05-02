@@ -17,6 +17,12 @@ namespace Game.Events
         public AudioClip bgm;
 
 
+        private void Start() {
+            if (soundControl == null) {
+                soundControl = FindObjectOfType<SoundControl>();
+            }            
+        }
+
         public override void RunEvent() {
             if (!triggered) {
                 triggered = true;

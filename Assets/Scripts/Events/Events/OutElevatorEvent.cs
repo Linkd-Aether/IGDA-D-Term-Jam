@@ -4,7 +4,6 @@ using Game.Lighting;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Lighting;
 
 
 namespace Game.Events

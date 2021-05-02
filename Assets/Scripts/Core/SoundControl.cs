@@ -19,6 +19,10 @@ namespace Game.Core
         private AudioSource audioSource;
         private AudioSource crossAudio;
         
+        
+        private void Awake() {
+            DontDestroyOnLoad(this.gameObject);    
+        }
 
         private void Start()
         {
