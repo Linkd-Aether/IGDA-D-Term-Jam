@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using Game.Lighting;
 
 namespace Game.Gameplay 
@@ -39,24 +40,29 @@ namespace Game.Gameplay
         }
 
         #region Opening Functionality
-            private void OpenDoor() {
-                closed = false;
-                doorCollider.enabled = false;
+        private void OpenDoor()
+        {
+            closed = false;
+            doorCollider.enabled = false;
 
-                GetComponent<SpriteRenderer>().color = Color.gray;
-            }
+            GetComponent<SpriteRenderer>().color = Color.gray;
+            GetComponent<ShadowCaster2D>().castsShadows = false;
+        }
 
-            private void CloseDoor() {
-                closed = true;
-                doorCollider.enabled = true;
+        private void CloseDoor()
+        {
+            closed = true;
+            doorCollider.enabled = true;
 
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
+            GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<ShadowCaster2D>().castsShadows = true;
+        }
 
-            public void ChangeDoor(bool state) {
-                if (state) OpenDoor();
-                else CloseDoor();
-            }
+        public void ChangeDoor(bool state)
+        {
+            if (state) OpenDoor();
+            else CloseDoor();
+        }
         #endregion
 
         #region Configure Lamps
