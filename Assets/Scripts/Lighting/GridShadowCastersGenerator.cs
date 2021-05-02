@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 
-public class GridShadowCastersGenerator : MonoBehaviour {
 
+public class GridShadowCastersGenerator : MonoBehaviour {
     public string colliderTag = "GenerateShadowCasters";
     public GameObject shadowCasterPrefab;
     public Transform shadowCastersContainer;
@@ -11,6 +10,7 @@ public class GridShadowCastersGenerator : MonoBehaviour {
 
     bool[,] hits;
     GameObject[,] instances;
+
 
     public GameObject[] Generate() {
         Debug.Log("### Generating ShadowCasters ###");
@@ -86,7 +86,8 @@ public class GridShadowCastersGenerator : MonoBehaviour {
 
                         // create new shadowCasterPrefab instance
 
-                        currentInstance = (GameObject)PrefabUtility.InstantiatePrefab(shadowCasterPrefab, shadowCastersContainer);
+                        currentInstance = (GameObject) Instantiate(shadowCasterPrefab);
+                        currentInstance.transform.parent = shadowCastersContainer;
                         currentInstance.transform.position = new Vector3(bottomLeft.x + x + 0.5f, bottomLeft.y + y + 0.5f, 0.0f);
                     } else {
 
@@ -167,29 +168,5 @@ public class GridShadowCastersGenerator : MonoBehaviour {
         }
 
         return false;
-    }
-}
-
-[CustomEditor(typeof(GridShadowCastersGenerator))]
-public class GridShadowCastersGeneratorEditor : Editor {
-
-    public override void OnInspectorGUI() {
-        DrawDefaultInspector();
-
-        if (GUILayout.Button("Generate")) {
-            var generator = (GridShadowCastersGenerator)target;
-
-            Undo.RecordObject(generator.shadowCastersContainer, "GridShadowCastersGenerator.generate"); // this does not work :(
-
-            var casters = generator.Generate();
-
-            // as a hack to make the editor save the shadowcaster instances, we rename them now instead of when theyre generated.
-
-            Undo.RecordObjects(casters, "GridShadowCastersGenerator name prefab instances");
-
-            for (var i = 0; i < casters.Length; i++) {
-                casters[i].name += "_" + i.ToString();
-            }
-        }
     }
 }
