@@ -8,7 +8,7 @@ namespace Game.Movement
     public class Mover : MonoBehaviour
     {
         // Variables
-        [SerializeField] private float moveSpd = 7.5f;
+        public float moveSpd = 7.5f;
         private bool moving;
         private Vector2 moveDirection = Vector2.zero;
 
