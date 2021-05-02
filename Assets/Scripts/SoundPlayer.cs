@@ -7,12 +7,15 @@ namespace Game.Events
     public class SoundPlayer : Event
     {
         public AudioClip audio;
-        AudioSource source;
+        public AudioSource source;
 
         // Start is called before the first frame update
         void Start()
         {
-            source = GetComponent<AudioSource>();
+            if (source == null)
+            {
+                source = GetComponent<AudioSource>();
+            }
         }
 
         public override void RunEvent()
