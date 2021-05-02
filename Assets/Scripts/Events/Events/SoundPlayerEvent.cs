@@ -12,7 +12,10 @@ namespace Game.Events
         // Start is called before the first frame update
         void Start()
         {
-            source = GetComponent<AudioSource>();
+            if (source == null)
+            {
+                source = GetComponent<AudioSource>();
+            }
         }
 
         public override void RunEvent()
