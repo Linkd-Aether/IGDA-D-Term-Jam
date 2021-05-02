@@ -73,9 +73,10 @@ namespace Game.Lighting
 
                 // More Angled View
                 BoxCollider2D boxCollider2D = lamp.GetComponent<BoxCollider2D>();
+
+                // Vertical Scanning
                 float lampHeight = boxCollider2D.size.y;
                 Vector2 top = (Vector2) lamp.transform.position + (Vector2.up * lampHeight/2);
-
                 float interpolation = 0;
                 while (interpolation < 1) {
                     Vector2 rayDir = (top - (Vector2.up * lampHeight * interpolation)) - (Vector2) transform.parent.position;
@@ -84,8 +85,23 @@ namespace Game.Lighting
                     if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
                         return true;
                     }
-                    interpolation += .1f;
+                    interpolation += .25f;
                 }
+
+                // Horizontal Scanning
+                float lampWidth = boxCollider2D.size.x;
+                Vector2 right = (Vector2) lamp.transform.position + (Vector2.up * lampWidth/2);
+                interpolation = 0;
+                while (interpolation < 1) {
+                    Vector2 rayDir = (right - (Vector2.up * lampWidth * interpolation)) - (Vector2) transform.parent.position;
+                    hit2D = Physics2D.Raycast(transform.parent.position, rayDir, lamp.lightDistance);
+
+                    if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
+                        return true;
+                    }
+                    interpolation += .25f;
+                }
+
 
                 return false;
             }
