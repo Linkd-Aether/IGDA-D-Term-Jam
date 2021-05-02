@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f3a5a9f6072daef4ab9fdf41fc55eecd, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9b34a9a06b89e7e409dc17ecba5fbc37, type: 3}
+  - {fileID: 21300000, guid: 5cf97fe030f7c744f88c62014b76a508, type: 3}
+  - {fileID: 21300000, guid: ad017321e348f3c4c9a2b4288e9ffa05, type: 3}
+  - {fileID: 21300000, guid: d0a3371436a061c46815f419c65c9f8f, type: 3}
+  - {fileID: 21300000, guid: 60bd36b6b480e6d4f8aa5af741f0428f, type: 3}
+  - {fileID: 21300000, guid: e912a7b613a240746bcedcc04910a4d9, type: 3}
+  - {fileID: 21300000, guid: ae396b8878c26d84d9f6ebf46fecdfc9, type: 3}
+  - {fileID: 21300000, guid: a790257910558604295c16d0ba1319c8, type: 3}
+  - {fileID: 21300000, guid: af7e8eaaa122a5b47823d13b6f9f9b47, type: 3}
+  - {fileID: 21300000, guid: 280ce14b0ebcab04596e89f6acc0904c, type: 3}
+  - {fileID: 21300000, guid: da979c4bc3a5eaa4a8c43f12db41ca05, type: 3}
+  - {fileID: 21300000, guid: a3dbc52d22f32414093887863b840f0c, type: 3}
+  - {fileID: 21300000, guid: 7930d59e5757a9e4e83e40689c65aaa9, type: 3}
+  - {fileID: 21300000, guid: 1dd24e2f5da115344b165f8bbbc45f13, type: 3}
+  - {fileID: 21300000, guid: ab1dbd7f55e951b408fd2d484030cfcb, type: 3}
+  - {fileID: 21300000, guid: cede85cf066e79945ae10b4a58c13c73, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - darkwalls3 - D
+  - darkwalls3 - R
+  - darkwalls1 - L
+  - darkwalls4 - U
+  - darkwalls2 - L
+  - darkwalls3 - U
+  - darkwalls1 - U
+  - darkwalls4 - D
+  - darkwalls2 - R
+  - darkwalls1 - D
+  - darkwalls4 - R
+  - darkwalls3 - L
+  - darkwalls2 - U
+  - darkwalls4 - L
+  - darkwalls1 - R
+  - darkwalls2 - D
+  m_Tag: SpriteAtlas
+  m_IsVariant: 0

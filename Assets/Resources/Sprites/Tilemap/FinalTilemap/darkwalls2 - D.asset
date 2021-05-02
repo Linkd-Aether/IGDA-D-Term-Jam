@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: darkwalls2 - D
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: cede85cf066e79945ae10b4a58c13c73, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.17235124, g: 0, b: 0.23584908, a: 1}
   m_Transform:
     e00: 1
     e01: 0
