@@ -11,7 +11,7 @@ namespace Game.Events
     {
         // Variables
         private bool triggered = false;
-        public TextMesh message;
+        public TextMesh[] messages;
         public float fadeTime = 2f;
 
         [Header("Mode")]
@@ -21,10 +21,12 @@ namespace Game.Events
         
         private void Start()
         {
-            if (message == null) message = GetComponentInChildren<TextMesh>();
-            Color color = message.color;
-            color.a = 0;
-            message.color = color;
+            if (messages == null) messages = GetComponentsInChildren<TextMesh>();
+            foreach (TextMesh message in messages) {
+                Color color = message.color;
+                color.a = 0;
+                message.color = color;
+            }
         }
 
         public override void RunEvent() {
@@ -37,9 +39,11 @@ namespace Game.Events
         }
 
         private void FadeText(float lerpValue) {
-            Color color = message.color;
-            color.a = lerpValue;
-            message.color = color;
+            foreach (TextMesh message in messages) {
+                Color color = message.color;
+                color.a = lerpValue;
+                message.color = color;
+            }
         }
     }
 }

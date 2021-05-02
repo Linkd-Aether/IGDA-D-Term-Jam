@@ -10,7 +10,7 @@ namespace Game.Lighting
     public class Lantern : Lightable
     {
         // Variables
-        private List<Lamp> lightableLamps = new List<Lamp>();
+        public List<Lamp> lightableLamps = new List<Lamp>();
 
 
         protected override void Awake() {
@@ -29,17 +29,18 @@ namespace Game.Lighting
             }
 
             public void SetLightFraction(float fraction) {
-                float currentIntensity, currentRadius;
+                float outerRadius, innerRadius;
                 if (isLit) {
-                    currentIntensity = MAX_INTENSITY;
-                    currentRadius = MAX_OUTER_RADIUS;
+                    outerRadius = MAX_OUTER_RADIUS;
+                    innerRadius = MAX_INNER_RADIUS;
                 } else {
-                    currentIntensity = MIN_INTENSITY;
-                    currentRadius = MIN_OUTER_RADIUS;
+                    outerRadius = MIN_OUTER_RADIUS;
+                    innerRadius = MIN_INNER_RADIUS;
                 }
                 
                 lightObj.intensity = currentIntensity * fraction;
-                lightObj.pointLightOuterRadius = currentRadius * fraction;
+                lightObj.pointLightOuterRadius = outerRadius * fraction;
+                lightObj.pointLightInnerRadius = innerRadius * fraction;
             }
         #endregion
 
@@ -57,14 +58,36 @@ namespace Game.Lighting
                 foreach (Lamp lamp in lightableLamps) {
                     if (!lamp.isLit)
                     {
-                        Vector2 rayDirection = lamp.transform.position - transform.parent.position;
-                        
-                        RaycastHit2D hit2D = Physics2D.Raycast(transform.parent.position, rayDirection, lamp.lightDistance);
-                        if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
-                            lamp.LightOn();
-                        }
+                        if (CheckViewToLamp(lamp)) lamp.LightOn();
                     }
                 }
+            }
+
+            public bool CheckViewToLamp(Lamp lamp) {
+                // Clear View
+                Vector2 rayDirectionToPivot = lamp.transform.position - transform.parent.position;
+                RaycastHit2D hit2D = Physics2D.Raycast(transform.parent.position, rayDirectionToPivot, lamp.lightDistance);
+                if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
+                    return true;    
+                }
+
+                BoxCollider2D boxCollider2D = lamp.GetComponent<BoxCollider2D>();
+                float lampHeight = boxCollider2D.size.y;
+                Vector2 top = (Vector2) lamp.transform.position + (Vector2.up * lampHeight/2);
+
+                float interpolation = 0;
+                while (interpolation < 1) {
+                    Vector2 rayDir = (top - (Vector2.up * lampHeight * interpolation)) - (Vector2) transform.parent.position;
+                    hit2D = Physics2D.Raycast(transform.parent.position, rayDir, lamp.lightDistance);
+
+                    if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
+                        Debug.DrawRay(transform.parent.position, rayDir.normalized*lamp.lightDistance, Color.green);
+                        return true;
+                    }
+                    interpolation += .1f;
+                }
+
+                return false;
             }
         #endregion
     }

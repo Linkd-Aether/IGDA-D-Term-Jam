@@ -27,7 +27,7 @@ namespace Game.Lighting
         // Variables
         public bool isLit = false;
         private bool flicker = true;
-        private float currentIntensity;
+        protected float currentIntensity;
         
         // Components & References
         protected Light2D lightObj;
@@ -43,14 +43,20 @@ namespace Game.Lighting
             if (flicker) StartCoroutine(FlickerLights());
         }
 
+        // Used for turning from off state to on
         public virtual void LightOn() {
             isLit = true;
-            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 0, 1, LIGHT_ON_TIME));
+
+            float start = (currentIntensity - MIN_INTENSITY) /  (MAX_INTENSITY - MIN_INTENSITY);
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, start, 1, LIGHT_ON_TIME));
         }
 
+        // Used for turning from on state to off
         public virtual void LightOff() {
             isLit = false;
-            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 1, 0, LIGHT_OFF_TIME));
+
+            float start = (currentIntensity - MIN_INTENSITY) /  (MAX_INTENSITY - MIN_INTENSITY);
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, start, 0, LIGHT_OFF_TIME));
         }
 
         protected virtual void SetLightColor(Color color) {

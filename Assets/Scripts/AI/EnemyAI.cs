@@ -13,7 +13,7 @@ namespace Game.AI
         // Constants
         private enum State { PATROL, CHASE, PAUSE };
 
-        private float PLAYER_CHASE_SEARCH_CALL_FREQ = .25f;
+        private float PLAYER_CHASE_SEARCH_CALL_FREQ = .12f;
 
         // Variables
         private int currentWaypoint = 0;

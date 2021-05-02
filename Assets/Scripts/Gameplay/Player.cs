@@ -60,14 +60,15 @@ namespace Game.Gameplay
             controller.StopInput();
             alive = false;
             playerCollider.enabled = false;
+            StartCoroutine(UtilFunctions.LerpCoroutine(lantern.SetLightFraction, 1, 0, DEATH_TIME/2));
             yield return StartCoroutine(UtilFunctions.LerpCoroutine(PlayerFade, 1, 0, DEATH_TIME));
             
-            lantern.LightOff();
             yield return new WaitForSeconds(RESPAWN_WAIT);
 
             CinemachineVirtualCamera followCamera = FindObjectOfType<CinemachineVirtualCamera>();
             followCamera.Follow = this.transform;
             transform.position = respawn.transform.position;
+            StartCoroutine(UtilFunctions.LerpCoroutine(lantern.SetLightFraction, 0, 1, RESPAWN_TIME));
             yield return StartCoroutine(UtilFunctions.LerpCoroutine(PlayerFade, 0, 1, RESPAWN_TIME));
 
             playerCollider.enabled = true;
@@ -76,8 +77,6 @@ namespace Game.Gameplay
         }
 
         private void PlayerFade(float lerpValue) {
-            lantern.SetLightFraction(lerpValue);
-            
             foreach (SpriteRenderer sprite in GetComponentsInChildren<SpriteRenderer>()) {
                 Color color = sprite.color;
                 color.a = lerpValue;
