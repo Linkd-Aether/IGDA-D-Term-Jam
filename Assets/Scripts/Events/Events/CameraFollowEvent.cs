@@ -41,8 +41,10 @@ namespace Game.Events
                 yield return new WaitForFixedUpdate();
             }
             
-            followCamera.Follow = target;
-            Destroy(transitionObject);
+            if (transitionObject != null) {
+                followCamera.Follow = target;
+                Destroy(transitionObject);
+            }
         }
     }
 }

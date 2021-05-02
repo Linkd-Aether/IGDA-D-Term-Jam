@@ -50,7 +50,7 @@ namespace Game.Gameplay
                 Transform enemy = collision.collider.transform;
 
                 StartCoroutine(PlayerDeath());
-                StartCoroutine(enemy.GetComponent<EnemyAI>().StateToPause(DEATH_TIME));
+                StartCoroutine(enemy.GetComponent<EnemyAI>().StateToPause(DEATH_TIME, true));
                 enemy.up = (Vector2) (transform.position - enemy.position);
             }
         }        

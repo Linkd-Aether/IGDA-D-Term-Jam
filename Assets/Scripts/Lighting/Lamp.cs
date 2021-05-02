@@ -21,6 +21,8 @@ namespace Game.Lighting
         private static float PULSE_TIME = .25f;
         private static float PULSE_PROPORTION = .5f;
 
+        private static AudioClip DELIGHT_AUDIO;
+
         // Variables
         [Tooltip("Set the radius from which the lamp can be lit.")]
         public float lightDistance = 5f;
@@ -33,6 +35,7 @@ namespace Game.Lighting
 
         private LampTrigger lampTrigger;
         private CircleCollider2D trigger;
+        private AudioSource source;
 
 
         protected override void Awake() {
@@ -40,10 +43,13 @@ namespace Game.Lighting
             MAX_OUTER_RADIUS = 5f;
             base.Awake();
 
+            DELIGHT_AUDIO = Resources.Load<AudioClip>("Audio/SFX/Extinguish Lanturn");
+            
             lantern = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Lantern>();
             lampTrigger = GetComponentInChildren<LampTrigger>();
             trigger = GetComponent<CircleCollider2D>();
             trigger.radius = lightDistance;
+            source = GetComponent<AudioSource>();
         }
 
         private void OnDrawGizmos() {
@@ -97,7 +103,7 @@ namespace Game.Lighting
                 }
 
                 base.LightOn();
-                if (lampTrigger != null) lampTrigger.OnLit();
+                lampTrigger.OnLit();
             }
 
             public void SetFixed(bool state) {
@@ -106,13 +112,24 @@ namespace Game.Lighting
 
             private IEnumerator PulseLight() {
                 isLit = true;
+                yield return new WaitForEndOfFrame();
+                if (fixedOn) {
+                    lampTrigger.OnLit();
+                } else {
+                    isLit = false;
+                    OnProximityFailed();
+                }
+
                 yield return StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 0, PULSE_PROPORTION, PULSE_TIME));
                 if (fixedOn) {
                     yield return StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, PULSE_PROPORTION, 1, PULSE_TIME));
                 } else {
-                    isLit = false;
                     yield return StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, PULSE_PROPORTION, 0, PULSE_TIME));
                 }
+            }
+
+            private void OnProximityFailed() {
+                source.PlayOneShot(DELIGHT_AUDIO);
             }
         #endregion
     }

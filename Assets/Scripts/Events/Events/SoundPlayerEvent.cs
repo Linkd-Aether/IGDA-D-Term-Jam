@@ -7,7 +7,7 @@ namespace Game.Events
     public class SoundPlayerEvent : Event
     {
         public AudioClip audioClip;
-        AudioSource source;
+        private AudioSource source;
 
         // Start is called before the first frame update
         void Start()

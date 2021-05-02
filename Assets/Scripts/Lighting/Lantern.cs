@@ -10,7 +10,13 @@ namespace Game.Lighting
     public class Lantern : Lightable
     {
         // Variables
-        public List<Lamp> lightableLamps = new List<Lamp>();
+        private static AudioClip TURN_ON_SOUND;
+        private static AudioClip TURN_OFF_SOUND;
+
+        private List<Lamp> lightableLamps = new List<Lamp>();
+
+        // Components & References
+        private AudioSource audioSource;
 
 
         protected override void Awake() {
@@ -20,6 +26,11 @@ namespace Game.Lighting
             MAX_INNER_RADIUS = 1f;
             MIN_INNER_RADIUS = 0f;
             base.Awake();
+
+            audioSource = GetComponent<AudioSource>();
+
+            TURN_ON_SOUND = Resources.Load<AudioClip>("Audio/SFX/Light_Lanturn");
+            TURN_OFF_SOUND = Resources.Load<AudioClip>("Audio/SFX/Extinguish Lanturn");
         }
 
         #region Lighting State Changes
@@ -41,6 +52,16 @@ namespace Game.Lighting
                 lightObj.intensity = currentIntensity * fraction;
                 lightObj.pointLightOuterRadius = outerRadius * fraction;
                 lightObj.pointLightInnerRadius = innerRadius * fraction;
+            }
+
+            public override void LightOn() {
+                audioSource.PlayOneShot(TURN_ON_SOUND);
+                base.LightOn();
+            }
+
+            public override void LightOff() {
+                audioSource.PlayOneShot(TURN_OFF_SOUND);
+                base.LightOff();
             }
         #endregion
 
