@@ -95,7 +95,7 @@ namespace Game.Lighting
                 while (interpolation < 1) {
                     Vector2 rayDir = (right - (Vector2.up * lampWidth * interpolation)) - (Vector2) transform.parent.position;
                     hit2D = Physics2D.Raycast(transform.parent.position, rayDir, lamp.lightDistance);
-
+                    
                     if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
                         return true;
                     }
