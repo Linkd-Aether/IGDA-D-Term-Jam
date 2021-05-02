@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using Game.Utils;
 
 
 namespace Game.Lighting 
@@ -17,6 +18,9 @@ namespace Game.Lighting
         protected float MAX_INNER_RADIUS = 0f;
         protected float MIN_INNER_RADIUS = 0f;
 
+        protected float LIGHT_ON_TIME = .25f;
+        protected float LIGHT_OFF_TIME = .5f;
+
         // Variables
         public bool isLit = false;
         
@@ -31,14 +35,12 @@ namespace Game.Lighting
 
         public virtual void LightOn() {
             isLit = true;
-            SetLightInstensity(MAX_INTENSITY);
-            SetLightRadius(MAX_INNER_RADIUS, MAX_OUTER_RADIUS);
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 0, 1, LIGHT_ON_TIME));
         }
 
         public virtual void LightOff() {
             isLit = false;
-            SetLightInstensity(MIN_INTENSITY);
-            SetLightRadius(MIN_INNER_RADIUS, MIN_OUTER_RADIUS);
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 1, 0, LIGHT_OFF_TIME));
         }
 
         protected virtual void SetLightColor(Color color) {
@@ -46,15 +48,22 @@ namespace Game.Lighting
             lightObj.color = color;
         }
 
-        protected virtual void SetLightInstensity(float intensity) {
-            // if (lightObj == null) Awake();
+        protected void SetLightInstensity(float intensity) {
             lightObj.intensity = intensity;
         }
 
-        protected virtual void SetLightRadius(float innerRadius, float outerRadius) {
-            // if (lightObj == null) Awake();
+        protected void SetLightRadius(float innerRadius, float outerRadius) {
             lightObj.pointLightInnerRadius = innerRadius;
             lightObj.pointLightOuterRadius = outerRadius;
+        }
+
+        protected void LightSetting(float percent) {
+            float intensity = MIN_INTENSITY + (MAX_INTENSITY - MIN_INTENSITY) * percent;
+            float innerRadius = MIN_INNER_RADIUS + (MAX_INNER_RADIUS - MIN_INNER_RADIUS) * percent;
+            float outerRadius = MIN_OUTER_RADIUS + (MAX_OUTER_RADIUS - MIN_OUTER_RADIUS) * percent;
+
+            SetLightInstensity(intensity);
+            SetLightRadius(innerRadius, outerRadius);                
         }
     }
 }
