@@ -44,6 +44,8 @@ namespace Game.AI
         private Path path;
         private Rigidbody2D rb;
         private Mover mover;
+        private EnemyControl enemyControl;
+
         private EnemyPath patrolPath;
         private Transform target;
 
@@ -59,6 +61,7 @@ namespace Game.AI
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             mover = GetComponent<Mover>();
+            enemyControl = GetComponent<EnemyControl>();
             patrolPath = transform.parent.GetComponentInChildren<EnemyPath>();
 
             StateToPatrol();
@@ -124,8 +127,10 @@ namespace Game.AI
 
         #region State Change
             // Temporary PAUSE before resuming PATROL
-            public IEnumerator StateToPause(float delay) 
+            public IEnumerator StateToPause(float delay, bool killedPlayer = false) 
             {
+                if (killedPlayer) enemyControl.KillPlayerScream();
+                else enemyControl.AbandonChaseScream();
                 CancelInvoke();
                 mover.UpdateMovement(Vector2.zero);
                 state = State.PAUSE;
@@ -151,6 +156,7 @@ namespace Game.AI
                     
                     RaycastHit2D hit2D = Physics2D.Raycast(transform.position, rayDirection, maxVisionDist);
                     if (hit2D && hit2D.collider.transform == player) {
+                        enemyControl.BeginChaseScream();
                         StateToChase(player);
                     }
                 }

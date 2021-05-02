@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // Constants
+    private static AudioClip SPAWN_SOUND;
+
     // Components & References
     private ParticleSystem spawnParticles;
     private Animation spawnAnimation;
@@ -12,6 +15,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        SPAWN_SOUND = Resources.Load<AudioClip>("Audio/SFX/Eldritch Scream 1");
+
         spawnAnimation = GetComponent<Animation>();
         spawnParticles = GetComponentInChildren<ParticleSystem>();
 
@@ -43,5 +48,10 @@ public class EnemySpawner : MonoBehaviour
         } 
 
         Destroy(this.gameObject);
+    }
+
+    public void PlayEntrySound() {
+        AudioSource audioSource = GetComponentInChildren<AudioSource>();
+        audioSource.PlayOneShot(SPAWN_SOUND);
     }
 }
