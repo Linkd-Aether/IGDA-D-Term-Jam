@@ -10,17 +10,17 @@ namespace Game.Events
     {
         private bool triggered = false;
 
-        public bool singleTriggerEvent = true;
         public float fadeTime = 2.5f;
+        public float maxVolume = .5f;
+
         public SoundControl soundControl;
         public AudioClip bgm;
 
 
         public override void RunEvent() {
-            if (!triggered || !singleTriggerEvent) {
+            if (!triggered) {
                 triggered = true;
-                StartCoroutine(soundControl.CrossFade(bgm, fadeTime));
-                Destroy(this);
+                StartCoroutine(soundControl.SwitchMusic(bgm, fadeTime, maxVolume));
             }
         }
     }

@@ -8,10 +8,14 @@ namespace Game.Core
     public class SoundControl : MonoBehaviour
     {
         // Constants
-        private float MAX_VOLUME = .5f;
         private float FADE_IN_TIME = 5f;
         
         // Variables
+        private float mainMaxAudio = .5f;
+        private float crossMaxAudio = 0f;
+
+        private float mainTrueMax;
+
         private AudioSource audioSource;
         private AudioSource crossAudio;
         
@@ -22,33 +26,57 @@ namespace Game.Core
             audioSource.volume = 0;
             audioSource.loop = true;
 
+            crossAudio = this.gameObject.AddComponent<AudioSource>();
+            crossAudio.loop = true;
+
             StartCoroutine(UtilFunctions.LerpCoroutine(FadeTheme, 0, 1, FADE_IN_TIME));
         }
 
         private void FadeTheme(float percent) {
-            audioSource.volume = MAX_VOLUME * percent;
+            audioSource.volume = mainMaxAudio * percent;
         }
 
-        private void CrossFadeTheme(float percent) {
-            audioSource.volume = MAX_VOLUME * (1 - percent);
-            crossAudio.volume = MAX_VOLUME * percent;
+        private void CrossFade(float percent) {
+            audioSource.volume = mainMaxAudio * percent;
+            crossAudio.volume = crossMaxAudio * (1 - percent);
         }
 
-        public IEnumerator CrossFade(AudioClip audioClip, float fadeTime) {
-            crossAudio = this.gameObject.AddComponent<AudioSource>();
+        public IEnumerator SwitchMusic(AudioClip audioClip, float fadeTime, float newAudioMaxVolume) {
             crossAudio.volume = 0;
             crossAudio.clip = audioClip;
-            crossAudio.loop = true;
             crossAudio.Play();
-            
-            yield return StartCoroutine(UtilFunctions.LerpCoroutine(CrossFadeTheme, 0, 1, fadeTime));
 
+            crossMaxAudio = audioSource.volume;
+            mainMaxAudio = newAudioMaxVolume;
+            
             AudioSource temp = audioSource;
             audioSource = crossAudio;
-            Destroy(temp);
-            print("ran throug");
+            crossAudio = temp;
 
-            yield return null;
+            yield return StartCoroutine(UtilFunctions.LerpCoroutine(CrossFade, 0, 1, fadeTime));
+        }
+
+        public IEnumerator CrossFadeInMix(AudioClip audioClip, float fadeTime, float newAudioMaxVolume) {
+            crossAudio.volume = 0;
+            crossAudio.clip = audioClip;
+            crossAudio.Play();
+
+            mainTrueMax = mainMaxAudio;
+            mainMaxAudio = audioSource.volume;
+            crossMaxAudio = newAudioMaxVolume;
+
+            yield return StartCoroutine(UtilFunctions.LerpCoroutine(CrossFade, 1, .5f, fadeTime));
+            yield return StartCoroutine(CrossFadeOutMix(5f));
+        }
+
+        public IEnumerator CrossFadeOutMix(float fadeTime) {
+            yield return StartCoroutine(UtilFunctions.LerpCoroutine(CrossFade, .5f, 1f, fadeTime));
+            mainMaxAudio = mainTrueMax;
+            if (mainMaxAudio != audioSource.volume) {
+                float start = audioSource.volume / mainMaxAudio;
+                float fade = FADE_IN_TIME * (1 - start);
+                yield return StartCoroutine(UtilFunctions.LerpCoroutine(FadeTheme, start, 1, fade));
+            }
         }
     }
 }

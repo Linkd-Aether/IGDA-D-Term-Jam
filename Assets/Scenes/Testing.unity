@@ -1153,6 +1153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   singleTriggerEvent: 0
   fadeTime: 2.5
+  maxVolume: 0.5
   soundControl: {fileID: 2060260829}
   bgm: {fileID: 8300000, guid: 569077d00cfafc046bc554d70d68adee, type: 3}
 --- !u!61 &1203199595
@@ -1847,6 +1848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   singleTriggerEvent: 0
   fadeTime: 5
+  maxVolume: 0.2
   soundControl: {fileID: 2060260829}
   bgm: {fileID: 8300000, guid: 249f7af390f60e14eae5e18a6f3f4167, type: 3}
 --- !u!61 &2142883830
