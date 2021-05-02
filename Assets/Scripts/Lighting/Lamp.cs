@@ -27,7 +27,7 @@ namespace Game.Lighting
 
         protected void Start() {
             MAX_INTENSITY = 1f;
-            MAX_RADIUS = 5f;
+            MAX_OUTER_RADIUS = 5f;
         }
 
         private void Update()
