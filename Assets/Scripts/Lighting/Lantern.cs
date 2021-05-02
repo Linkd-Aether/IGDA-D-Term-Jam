@@ -10,7 +10,11 @@ namespace Game.Lighting
     public class Lantern : Lightable
     {
         protected override void Awake() {
-            MIN_INTENSITY = .5f;
+            MIN_INTENSITY = .75f;
+            MAX_OUTER_RADIUS = 4f;
+            MIN_OUTER_RADIUS = 2f;
+            MAX_INNER_RADIUS = 1f;
+            MIN_INNER_RADIUS = 0f;
             base.Awake();
         }
 
@@ -24,10 +28,10 @@ namespace Game.Lighting
                 float currentIntensity, currentRadius;
                 if (isLit) {
                     currentIntensity = MAX_INTENSITY;
-                    currentRadius = MAX_RADIUS;
+                    currentRadius = MAX_OUTER_RADIUS;
                 } else {
                     currentIntensity = MIN_INTENSITY;
-                    currentRadius = MIN_RADIUS;
+                    currentRadius = MIN_OUTER_RADIUS;
                 }
                 
                 lightObj.intensity = currentIntensity * fraction;
