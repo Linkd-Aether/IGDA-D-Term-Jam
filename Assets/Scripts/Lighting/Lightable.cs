@@ -21,8 +21,13 @@ namespace Game.Lighting
         protected float LIGHT_ON_TIME = .25f;
         protected float LIGHT_OFF_TIME = .5f;
 
+        protected float FLICKER_AMOUNT = .075f;
+        protected float FLICKER_DELAY = .05f;
+
         // Variables
         public bool isLit = false;
+        private bool flicker = true;
+        private float currentIntensity;
         
         // Components & References
         protected Light2D lightObj;
@@ -31,6 +36,11 @@ namespace Game.Lighting
         protected virtual void Awake()
         {
             lightObj = GetComponent<Light2D>();
+        }
+
+        protected virtual void Start() {
+            currentIntensity = lightObj.intensity;
+            if (flicker) StartCoroutine(FlickerLights());
         }
 
         public virtual void LightOn() {
@@ -49,7 +59,7 @@ namespace Game.Lighting
         }
 
         protected void SetLightInstensity(float intensity) {
-            lightObj.intensity = intensity;
+            currentIntensity = intensity;
         }
 
         protected void SetLightRadius(float innerRadius, float outerRadius) {
@@ -64,6 +74,14 @@ namespace Game.Lighting
 
             SetLightInstensity(intensity);
             SetLightRadius(innerRadius, outerRadius);                
+        }
+
+        private IEnumerator FlickerLights() {
+            while (flicker) {
+                float intensity = currentIntensity * Random.Range(1 - FLICKER_AMOUNT, 1 + FLICKER_AMOUNT);
+                lightObj.intensity = intensity;
+                yield return new WaitForSeconds(FLICKER_DELAY);
+            }
         }
     }
 }
