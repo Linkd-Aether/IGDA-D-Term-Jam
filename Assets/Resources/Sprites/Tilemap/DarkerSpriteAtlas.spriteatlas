@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DarkerSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 958dd9f3374f80e4dadbfd808dc77c06, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8680efc07c66c8944ab951ca237e3da8, type: 3}
+  - {fileID: 21300000, guid: 772a3431c2018884289eff466c6359b3, type: 3}
+  - {fileID: 21300000, guid: 6319d55155eadb64eb3b362f80f0fac3, type: 3}
+  - {fileID: 21300000, guid: 603dc2947e09a534db4beed93effdc85, type: 3}
+  - {fileID: 21300000, guid: fee288152fed4b44c900b89c33c41a0a, type: 3}
+  - {fileID: 21300000, guid: a474c2f51eb1d514794c251c228749de, type: 3}
+  - {fileID: 21300000, guid: 81eea90870b37634bb118ef051d84db6, type: 3}
+  - {fileID: 21300000, guid: a2727969671f80d4dbc83cf59914c37f, type: 3}
+  - {fileID: 21300000, guid: 4801efd9425bcf74493448c33096c7c4, type: 3}
+  - {fileID: 21300000, guid: c5159d7a40156d24fa70a8ea852bb26d, type: 3}
+  - {fileID: 21300000, guid: effb2caa9d628fe49b58f2dc1f6889c3, type: 3}
+  - {fileID: 21300000, guid: 50c425fa54dd0ca428938cc7fd2af22e, type: 3}
+  - {fileID: 21300000, guid: ae8b9e7ed9d8a4b4c89dab131cf247c0, type: 3}
+  - {fileID: 21300000, guid: 73bab7ceebc12794ca1b027d88794c8f, type: 3}
+  - {fileID: 21300000, guid: 2cafae1f80a44e74998cf3f25f5b9549, type: 3}
+  - {fileID: 21300000, guid: 4fed5eef5e7a00b44a60b097e00a31de, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - darkerwalls1 - L
+  - darkerwalls3 - U
+  - darkerwalls4 - U
+  - darkerwalls2 - R
+  - darkerwalls2 - U
+  - darkerwalls1 - R
+  - darkerwalls3 - D
+  - darkerwalls3 - R
+  - darkerwalls1 - D
+  - darkerwalls2 - D
+  - darkerwalls4 - L
+  - darkerwalls3 - L
+  - darkerwalls4 - R
+  - darkerwalls2 - L
+  - darkerwalls4 - D
+  - darkerwalls1 - U
+  m_Tag: DarkerSpriteAtlas
+  m_IsVariant: 0

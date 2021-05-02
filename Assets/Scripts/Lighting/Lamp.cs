@@ -81,10 +81,14 @@ namespace Game.Lighting
             }
 
             private void OnTriggerExit2D(Collider2D other) {
-                lantern.LightableLampsUpdate(this, false);
-                if (lampType == LampType.PROXIMITY && !fixedOn && isLit) {
-                    isLit = false;
-                    StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 1, 0, DELIGHT_TIME));
+                if (other.gameObject.tag == "Player")
+                {
+                    lantern.LightableLampsUpdate(this, false);
+                    if (lampType == LampType.PROXIMITY && !fixedOn && isLit)
+                    {
+                        isLit = false;
+                        StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 1, 0, DELIGHT_TIME));
+                    }
                 }
             }
 
