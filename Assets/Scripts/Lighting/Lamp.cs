@@ -93,7 +93,7 @@ namespace Game.Lighting
                 }
 
                 base.LightOn();
-                if (lampTrigger != null) lampTrigger.OnLit();
+                lampTrigger.OnLit();
             }
 
             public void SetFixed(bool state) {
@@ -104,6 +104,7 @@ namespace Game.Lighting
                 isLit = true;
                 yield return StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 0, PULSE_PROPORTION, PULSE_TIME));
                 if (fixedOn) {
+                    lampTrigger.OnLit();
                     yield return StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, PULSE_PROPORTION, 1, PULSE_TIME));
                 } else {
                     isLit = false;
