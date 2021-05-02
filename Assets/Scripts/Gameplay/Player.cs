@@ -6,6 +6,8 @@ using Game.Lighting;
 using Game.Utils;
 using Game.AI;
 using Game.Movement;
+using Cinemachine;
+
 
 namespace Game.Gameplay
 {
@@ -63,6 +65,8 @@ namespace Game.Gameplay
             lantern.LightOff();
             yield return new WaitForSeconds(RESPAWN_WAIT);
 
+            CinemachineVirtualCamera followCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            followCamera.Follow = this.transform;
             transform.position = respawn.transform.position;
             yield return StartCoroutine(UtilFunctions.LerpCoroutine(PlayerFade, 0, 1, RESPAWN_TIME));
 
