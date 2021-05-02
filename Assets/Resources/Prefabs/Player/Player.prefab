@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4341395789807509956}
-  - component: {fileID: 4341395789807509960}
   - component: {fileID: 4341395789807509959}
   - component: {fileID: 4341395789807509958}
   - component: {fileID: 4341395789807509957}
   - component: {fileID: 7422606091072822590}
+  - component: {fileID: 6873676086847093702}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36,22 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &4341395789807509960
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4341395789807509955}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.3}
-  m_Size: {x: 1, y: 0.5}
-  m_Direction: 1
 --- !u!50 &4341395789807509959
 Rigidbody2D:
   serializedVersion: 4
@@ -111,6 +95,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawn: {fileID: 0}
+--- !u!58 &6873676086847093702
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341395789807509955}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.2}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!1 &5695297021435816328
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 164916186171398578, guid: 5c5e188ef14f009408360e5713dc44ff,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 164916186171398578, guid: 5c5e188ef14f009408360e5713dc44ff,
         type: 3}
