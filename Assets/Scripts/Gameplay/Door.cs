@@ -68,8 +68,10 @@ namespace Game.Gameplay
 
         public void ChangeDoor(bool state)
         {
-            if (state) OpenDoor();
-            else CloseDoor();
+            if (state == closed) {
+                if (state) OpenDoor();
+                else CloseDoor();
+            }
         }
         #endregion
 

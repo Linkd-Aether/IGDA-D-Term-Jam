@@ -29,17 +29,18 @@ namespace Game.Lighting
             }
 
             public void SetLightFraction(float fraction) {
-                float currentIntensity, currentRadius;
+                float outerRadius, innerRadius;
                 if (isLit) {
-                    currentIntensity = MAX_INTENSITY;
-                    currentRadius = MAX_OUTER_RADIUS;
+                    outerRadius = MAX_OUTER_RADIUS;
+                    innerRadius = MAX_INNER_RADIUS;
                 } else {
-                    currentIntensity = MIN_INTENSITY;
-                    currentRadius = MIN_OUTER_RADIUS;
+                    outerRadius = MIN_OUTER_RADIUS;
+                    innerRadius = MIN_INNER_RADIUS;
                 }
                 
                 lightObj.intensity = currentIntensity * fraction;
-                lightObj.pointLightOuterRadius = currentRadius * fraction;
+                lightObj.pointLightOuterRadius = outerRadius * fraction;
+                lightObj.pointLightInnerRadius = innerRadius * fraction;
             }
         #endregion
 

@@ -71,10 +71,12 @@ namespace Game.Gameplay
 
             public void UpdateRespawn() 
             {
-                if (player.respawn != null) player.respawn.RemoveRespawn();
-                isActive = true;
-                player.respawn = this;
-                SetRespawnColor(true);
+                if (this != player.respawn) {
+                    if (player.respawn != null) player.respawn.RemoveRespawn();
+                    isActive = true;
+                    player.respawn = this;
+                    SetRespawnColor(true);
+                }
             }
 
             public void RemoveRespawn() 
