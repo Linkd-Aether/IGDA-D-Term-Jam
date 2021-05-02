@@ -69,7 +69,9 @@ namespace Game.Lighting
 
         #region Lamp Light
             private void OnTriggerEnter2D(Collider2D other) {
-                lantern.LightableLampsUpdate(this, true);
+                if (other.gameObject.tag == "Player") {
+                    lantern.LightableLampsUpdate(this, true);
+                }
             }
 
             private void OnTriggerExit2D(Collider2D other) {
