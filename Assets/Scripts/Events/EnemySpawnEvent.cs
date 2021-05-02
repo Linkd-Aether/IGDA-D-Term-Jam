@@ -7,30 +7,29 @@ namespace Game.Events
 {
     public class EnemySpawnEvent : Event
     {
-        // Constants
-        private float ANIM_LENGTH = 5f;
-
         // Variables
-        private bool triggered = false;
-
         [Header("Cutscene Settings")]
-        public float spawnDelay = 1f;
+        public float cameraMoveToSpd;
+        public float cameraMoveReturnSpd;
+        public float spawnDelay;
         
         // Components & References
-        public EnemySpawner enemySpawner;
+        private EnemySpawner enemySpawner;
         
+        
+        private void Start()
+        {
+            enemySpawner = GetComponentInChildren<EnemySpawner>();
+        }
 
         public override void RunEvent() {
-            if (!triggered) {
-                triggered = true;
-                StartCoroutine(EnemySpawnScene());
-            }
+            StartCoroutine(EnemySpawnScene());
         }
 
         private IEnumerator EnemySpawnScene() {
-            yield return new WaitForSeconds(spawnDelay);
+            yield return null;
             enemySpawner.SpawnEnemy();
-            yield return new WaitForSeconds(ANIM_LENGTH);
+            yield return null;
         }
     }
 }

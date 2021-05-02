@@ -24,6 +24,7 @@ public class SceneControl : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name.Equals("Title") && Input.anyKeyDown)
         {
+            Debug.Log("I am trying to do thing");
             StartCoroutine(Object.FindObjectOfType<SceneControl>().SceneTransition());
         }
     }

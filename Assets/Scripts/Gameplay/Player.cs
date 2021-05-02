@@ -5,7 +5,7 @@ using Game.Control;
 using Game.Lighting;
 using Game.Utils;
 using Game.AI;
-using Game.Movement;
+
 
 namespace Game.Gameplay
 {
@@ -79,23 +79,6 @@ namespace Game.Gameplay
                 color.a = lerpValue;
                 sprite.color = color;
             }
-        }
-
-        public void Freeze()
-        {
-            alive = false;
-            GetComponentInChildren<Animator>().SetBool("Moving", false);
-            GetComponentInChildren<Mover>().UpdateMovement(Vector2.zero);
-        }
-
-        public void Unfreeze()
-        {
-            alive = true;
-        }
-
-        public void SizeChange(float lerpValue)
-        {
-            transform.localScale = new Vector3(lerpValue, lerpValue, 1);
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Game.Lighting
         protected virtual void Awake()
         {
             lightObj = GetComponent<Light2D>();
+            LightOff();
         }
 
         public virtual void LightOn() {

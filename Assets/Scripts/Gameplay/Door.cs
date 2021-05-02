@@ -15,7 +15,6 @@ namespace Game.Gameplay
         public bool closed = true;
 
         [Header("Puzzle Variables")] 
-        public bool lampless = false;
         public bool proximityDoorPuzzle = false;
         public float lightingDistance = 1.5f;
 
@@ -29,7 +28,7 @@ namespace Game.Gameplay
             base.Awake();
 
             SetProximityLamps(proximityDoorPuzzle, lightingDistance);
-            if (lightingDistance == 0) Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
+            Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
             if (proximityDoorPuzzle) {
                 ChangeLampColors(PROXIMITY_LAMP_COLOR);
             }    
@@ -37,9 +36,7 @@ namespace Game.Gameplay
 
         void Update()
         {
-            if (!lampless && closed && AllLampsLit()) {
-                OpenDoor();
-            }
+            if (closed && AllLampsLit()) OpenDoor();
         }
 
         #region Opening Functionality
@@ -48,18 +45,6 @@ namespace Game.Gameplay
                 doorCollider.enabled = false;
 
                 GetComponent<SpriteRenderer>().color = Color.gray;
-            }
-
-            private void CloseDoor() {
-                closed = true;
-                doorCollider.enabled = true;
-
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
-
-            public void ChangeDoor(bool state) {
-                if (state) OpenDoor();
-                else CloseDoor();
             }
         #endregion
     }
