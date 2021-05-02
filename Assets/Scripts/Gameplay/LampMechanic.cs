@@ -9,71 +9,59 @@ namespace Game.Gameplay
     {
         // Constants
         private static string LAMP_PREFAB = "Prefabs/Interactables/Lamp";
-        private static Color DEFAULT_LAMP_COLOR = Color.white;
 
         // Components & References
-        protected Transform[] lamps;
+        protected Lamp[] lamps;
 
 
         protected virtual void Awake() 
         {
-            lamps = new Transform[transform.childCount];
+            lamps = new Lamp[transform.childCount];
             
             int childNum = 0;
             foreach (Transform child in transform) {
-                lamps[childNum] = child;
+                Lamp lamp = child.GetComponent<Lamp>();
+                lamps[childNum] = lamp;
                 childNum++;
             }
-            // ChangeLampColors(DEFAULT_LAMP_COLOR);
         }
         
-        private void OnDrawGizmos() {
-            Awake();
-            foreach (Transform lamp in lamps) {
-                Gizmos.DrawLine(lamp.position, transform.position);
-            }
-        }
-
         #region Lamp Functions
             protected bool AllLampsLit() {
-                foreach (Transform lamp in lamps) {
-                    Lamp lampRef = lamp.GetComponent<Lamp>();
-                    if (!lampRef.isLit) return false;
+                foreach (Lamp lamp in lamps) {
+                    if (!lamp.isLit) return false;
                 }
                 return true;
             }
 
             protected bool AnyLampsLit() {
-                foreach (Transform lamp in lamps) {
-                    Lamp lampRef = lamp.GetComponent<Lamp>();
-                    if (lampRef.isLit) return true;
+                foreach (Lamp lamp in lamps) {
+                    if (lamp.isLit) return true;
                 }
                 return false;
             }
 
             protected void UnlightAllLamps() {
-                foreach (Transform lamp in lamps) {
-                    Lamp lampRef = lamp.GetComponent<Lamp>();
-                    lampRef.LightOff();
+                foreach (Lamp lamp in lamps) {
+                    lamp.LightOff();
                 }
             }
-
-            protected void ChangeLampColors(Color color) {
-                foreach (Transform lamp in lamps) {
-                    Lamp lampRef = lamp.GetComponent<Lamp>();
-                    lampRef.SetLightColor(color);
-                }
-            }
-
-            protected void SetProximityLamps(bool state, float distance) {
-                foreach (Transform lamp in lamps) {
-                    Lamp lampRef = lamp.GetComponent<Lamp>();
-                    lampRef.SetProximity(state, distance);
+            
+            protected void FixLampsOn() {
+                foreach (Lamp lamp in lamps) {
+                    lamp.SetFixed(true);
                 }
             }
         #endregion
 
         #region Unity Editor Functionality
+            private void OnDrawGizmos() {
+                Awake();
+                foreach (Lamp lamp in lamps) {
+                    Gizmos.DrawLine(lamp.transform.position, transform.position);
+                }
+            }
+
             public void AddLamp()
             {
                 Awake();

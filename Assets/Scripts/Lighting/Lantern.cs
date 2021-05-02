@@ -55,7 +55,12 @@ namespace Game.Lighting
             public void LightableLampsLight() 
             {
                 foreach (Lamp lamp in lightableLamps) {
-                    lamp.LightOn();
+                    Vector2 rayDirection = lamp.transform.position - transform.parent.position;
+                    
+                    RaycastHit2D hit2D = Physics2D.Raycast(transform.parent.position, rayDirection, lamp.lightDistance);
+                    if (hit2D && hit2D.collider.gameObject == lamp.gameObject) {
+                        lamp.LightOn();
+                    }
                 }
             }
         #endregion
