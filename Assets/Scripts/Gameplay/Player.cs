@@ -51,7 +51,7 @@ namespace Game.Gameplay
 
                 StartCoroutine(PlayerDeath());
                 StartCoroutine(enemy.GetComponent<EnemyAI>().StateToPause(DEATH_TIME));
-                enemy.up = (transform.position - enemy.position);
+                enemy.up = (Vector2) (transform.position - enemy.position);
             }
         }        
 
