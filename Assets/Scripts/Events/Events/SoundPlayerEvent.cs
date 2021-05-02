@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Game.Events
 {
-    public class SoundPlayer : Event
+    public class SoundPlayerEvent : Event
     {
-        public AudioClip audio;
+        public AudioClip audioClip;
         AudioSource source;
 
         // Start is called before the first frame update
@@ -17,7 +17,7 @@ namespace Game.Events
 
         public override void RunEvent()
         {
-            source.PlayOneShot(audio, 1.0f);
+            source.PlayOneShot(audioClip, 1.0f);
         }
     }
 }
