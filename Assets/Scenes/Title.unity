@@ -839,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 3133586382036822303, guid: 5046ad73b2127304993a2e6adaf02faf,
         type: 3}
       propertyPath: nextIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3133586382313422882, guid: 5046ad73b2127304993a2e6adaf02faf,
         type: 3}
