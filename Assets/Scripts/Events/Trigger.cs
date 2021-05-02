@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 namespace Game.Events
 {
-    public abstract class Trigger : MonoBehaviour
+    public class Trigger : MonoBehaviour
     {
         // Components & References
-        protected Event[] events;
+        private Event[] events;
 
 
-        protected virtual void Start()
+        private void Start()
         {
             events = GetComponentsInChildren<Event>();    
         }
 
-        public virtual void TriggerActivated() {
-            foreach (Event scriptedEvent in events) {
-                scriptedEvent.RunEvent();
+        private void OnTriggerEnter2D(Collider2D other) {
+            if (other.gameObject.tag == "Player") {
+                foreach (Event scriptedEvent in events) {
+                    scriptedEvent.RunEvent();
+                }
             }
         }
     }

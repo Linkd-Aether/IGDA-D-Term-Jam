@@ -65,8 +65,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 20
-  m_AngularDrag: 0
+  m_LinearDrag: 5
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf1e08a299f4a64f88ae80433510067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpd: 100
+  moveSpd: 7.5
 --- !u!114 &4341395789807509957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de9cc209d4b23944a9cfa12f6162019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawn: {fileID: 0}
 --- !u!1 &5695297021435816328
 GameObject:
   m_ObjectHideFlags: 0

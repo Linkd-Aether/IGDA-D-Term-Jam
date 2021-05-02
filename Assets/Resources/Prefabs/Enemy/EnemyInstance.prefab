@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1757291712}
   - component: {fileID: 1757291714}
   - component: {fileID: 1757291713}
-  - component: {fileID: 5466041092804170246}
   m_Layer: 0
   m_Name: EnemyGFX
   m_TagString: Untagged
@@ -103,61 +102,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5466041092804170246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757291711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LightType: 1
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.754717, g: 0.039159846, b: 0.11151016, a: 1}
-  m_Intensity: 1.5
-  m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
-  m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 0
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 1
-  m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
-  m_PointLightDistance: 3
-  m_PointLightQuality: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.7
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.43557194, y: -0.53221405, z: 0}
-  - {x: 0.09822277, y: -0.49163973, z: 0}
-  - {x: 0.49999988, y: -0.3953046, z: 0}
-  - {x: 0.63780594, y: -0.18560757, z: 0}
-  - {x: 0.75055474, y: 0.0076760333, z: 0}
-  - {x: 0.6458593, y: 0.1848526, z: 0}
-  - {x: 0.532214, y: 0.3953047, z: 0}
-  - {x: 0.11432952, y: 0.45867088, z: 0}
-  - {x: -0.3953045, y: 0.46778595, z: 0}
-  - {x: -0.8118208, y: 0.39424288, z: 0}
-  - {x: -1.2386557, y: 0.281494, z: 0}
-  - {x: -1.4883142, y: 0.15263802, z: 0}
-  - {x: -1.6896505, y: 0.04794297, z: 0}
-  - {x: -1.8104523, y: -0.048698936, z: 0}
-  - {x: -1.6977038, y: -0.16144769, z: 0}
-  - {x: -1.4963667, y: -0.2500359, z: 0}
-  - {x: -1.2547629, y: -0.37083805, z: 0}
-  - {x: -0.7715536, y: -0.49969378, z: 0}
 --- !u!1 &5798297182808045104
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +183,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 2
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -287,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf1e08a299f4a64f88ae80433510067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpd: 12.5
+  moveSpd: 7.5
 --- !u!114 &2662647690154885338
 MonoBehaviour:
   m_ObjectHideFlags: 0
