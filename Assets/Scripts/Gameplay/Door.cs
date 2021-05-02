@@ -3,43 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Game.Lighting;
+using Game.Events;
 
 namespace Game.Gameplay 
 {
+    [RequireComponent(typeof(DoorTrigger))]
     public class Door : LampMechanic
     {
-        // Constants
-        private static Color PROXIMITY_LAMP_COLOR = Color.red;
-
         // Variables
         [Header("Door Status")]
         public bool closed = true;
 
-        [Header("Puzzle Variables")] 
-        public bool lampless = false;
+        [Header("Puzzle Variables")]
         public bool proximityDoorPuzzle = false;
-        public float lightingDistance = 1.5f;
+        private bool lampless = false;
 
         // Components & References
         private Collider2D doorCollider;
+        private DoorTrigger trigger;
 
         
         protected override void Awake() 
         {
             doorCollider = GetComponent<Collider2D>();
+            trigger = GetComponent<DoorTrigger>();
+
             base.Awake();
 
-            SetProximityLamps(proximityDoorPuzzle, lightingDistance);
-            if (lightingDistance == 0) Debug.LogWarning("Make sure Lighting Distance isn't set to 0!");
-            if (proximityDoorPuzzle) {
-                ChangeLampColors(PROXIMITY_LAMP_COLOR);
-            }    
+            if (proximityDoorPuzzle) SetProximityLamps();
+            else SetNormalLamps();
+            lampless = (lamps.Length == 0);
         }
 
         void Update()
         {
             if (!lampless && closed && AllLampsLit()) {
                 OpenDoor();
+                if (proximityDoorPuzzle) FixLampsOn();
             }
         }
 
@@ -48,6 +48,8 @@ namespace Game.Gameplay
         {
             closed = false;
             doorCollider.enabled = false;
+
+            trigger.RunEvents(trigger.openEvents);
 
             GetComponent<SpriteRenderer>().color = Color.gray;
             GetComponent<ShadowCaster2D>().castsShadows = false;
@@ -58,6 +60,8 @@ namespace Game.Gameplay
             closed = true;
             doorCollider.enabled = true;
 
+            trigger.RunEvents(trigger.closeEvents);
+
             GetComponent<SpriteRenderer>().color = Color.white;
             GetComponent<ShadowCaster2D>().castsShadows = true;
         }
@@ -67,6 +71,20 @@ namespace Game.Gameplay
             if (state) OpenDoor();
             else CloseDoor();
         }
+        #endregion
+
+        #region Configure Lamps
+            private void SetProximityLamps() {
+                foreach (Lamp lamp in lamps) {
+                    lamp.SetProximityLamp();
+                }
+            }
+
+            private void SetNormalLamps() {
+                foreach (Lamp lamp in lamps) {
+                    lamp.SetNormalLamp();
+                }
+            }
         #endregion
     }
 }

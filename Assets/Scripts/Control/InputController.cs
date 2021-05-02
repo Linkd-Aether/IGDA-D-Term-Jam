@@ -26,6 +26,8 @@ namespace Game.Control
 
             if (Input.GetKeyDown(KeyCode.Q)) {
                 lantern.ChangeLight();
+            } else if (lantern.isLit && Input.GetKeyDown(KeyCode.E)) {
+                lantern.LightableLampsLight();
             }
         }
 

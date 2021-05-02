@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using Game.Utils;
 
 
 namespace Game.Lighting 
@@ -11,14 +12,22 @@ namespace Game.Lighting
     {
         // Constants
         protected float MAX_INTENSITY = 2f;
-        protected float MIN_INTENSITY = 0f;
+        protected float MIN_INTENSITY = 0.5f;
         protected float MAX_OUTER_RADIUS = 3f;
         protected float MIN_OUTER_RADIUS = 1.5f;
         protected float MAX_INNER_RADIUS = 0f;
         protected float MIN_INNER_RADIUS = 0f;
 
+        protected float LIGHT_ON_TIME = .25f;
+        protected float LIGHT_OFF_TIME = .5f;
+
+        protected float FLICKER_AMOUNT = .075f;
+        protected float FLICKER_DELAY = .05f;
+
         // Variables
         public bool isLit = false;
+        private bool flicker = true;
+        private float currentIntensity;
         
         // Components & References
         protected Light2D lightObj;
@@ -29,23 +38,50 @@ namespace Game.Lighting
             lightObj = GetComponent<Light2D>();
         }
 
+        protected virtual void Start() {
+            currentIntensity = lightObj.intensity;
+            if (flicker) StartCoroutine(FlickerLights());
+        }
+
         public virtual void LightOn() {
             isLit = true;
-            lightObj.intensity = MAX_INTENSITY;
-            lightObj.pointLightOuterRadius = MAX_OUTER_RADIUS;
-            lightObj.pointLightInnerRadius = MAX_INNER_RADIUS;
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 0, 1, LIGHT_ON_TIME));
         }
 
         public virtual void LightOff() {
             isLit = false;
-            lightObj.intensity = MIN_INTENSITY;
-            lightObj.pointLightOuterRadius = MIN_OUTER_RADIUS;
-            lightObj.pointLightInnerRadius = MIN_INNER_RADIUS;
+            StartCoroutine(UtilFunctions.LerpCoroutine(LightSetting, 1, 0, LIGHT_OFF_TIME));
         }
 
-        public virtual void SetLightColor(Color color) {
+        protected virtual void SetLightColor(Color color) {
             if (lightObj == null) Awake();
             lightObj.color = color;
+        }
+
+        protected void SetLightInstensity(float intensity) {
+            currentIntensity = intensity;
+        }
+
+        protected void SetLightRadius(float innerRadius, float outerRadius) {
+            lightObj.pointLightInnerRadius = innerRadius;
+            lightObj.pointLightOuterRadius = outerRadius;
+        }
+
+        protected void LightSetting(float percent) {
+            float intensity = MIN_INTENSITY + (MAX_INTENSITY - MIN_INTENSITY) * percent;
+            float innerRadius = MIN_INNER_RADIUS + (MAX_INNER_RADIUS - MIN_INNER_RADIUS) * percent;
+            float outerRadius = MIN_OUTER_RADIUS + (MAX_OUTER_RADIUS - MIN_OUTER_RADIUS) * percent;
+
+            SetLightInstensity(intensity);
+            SetLightRadius(innerRadius, outerRadius);                
+        }
+
+        private IEnumerator FlickerLights() {
+            while (flicker) {
+                float intensity = currentIntensity * Random.Range(1 - FLICKER_AMOUNT, 1 + FLICKER_AMOUNT);
+                lightObj.intensity = intensity;
+                yield return new WaitForSeconds(FLICKER_DELAY);
+            }
         }
     }
 }

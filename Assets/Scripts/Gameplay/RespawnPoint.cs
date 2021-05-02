@@ -12,7 +12,6 @@ namespace Game.Gameplay
     public class RespawnPoint : LampMechanic
     {
         // Constants
-        private static Color RESPAWN_LAMP_COLOR = Color.blue;
         private static Color DEACTIVE_SPAWN_COLOR = new Color(0,0,0,50f/255f);
         private static Color ACTIVE_SPAWN_COLOR = new Color(100f/255f, 100f/255f, 1, 150f/255f);
         private static float COLOR_CHANGE_TIME = 0.5f;
@@ -40,18 +39,12 @@ namespace Game.Gameplay
         }
 
         private void Start() {
-            ChangeLampColors(RESPAWN_LAMP_COLOR);    
+            SetRespawnLamps();    
         
             if (hiddenSpawn) spriteRenderer.color = new Color(1, 1, 1, 0);
             else SetRespawnColor(isActive);
             
             player = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (!isActive && AnyLampsLit()) UpdateRespawn();
         }
 
         #region Respawn Functionality
@@ -76,9 +69,9 @@ namespace Game.Gameplay
                 return respawn;
             }
 
-            private void UpdateRespawn() 
+            public void UpdateRespawn() 
             {
-                player.respawn.RemoveRespawn();
+                if (player.respawn != null) player.respawn.RemoveRespawn();
                 isActive = true;
                 player.respawn = this;
                 SetRespawnColor(true);
@@ -93,6 +86,12 @@ namespace Game.Gameplay
         #endregion
     
         #region Color Change
+            private void SetRespawnLamps() {
+                foreach (Lamp lamp in lamps) {
+                    lamp.SetRespawnLamp();
+                }
+            }
+
             private void SetRespawnColor(bool state) {
                 if (!hiddenSpawn) {
                     int[] values = {0, 1};

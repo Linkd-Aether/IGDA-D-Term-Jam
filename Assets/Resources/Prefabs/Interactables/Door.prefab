@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 5107160475253080644}
   - component: {fileID: 5107160475253080643}
   - component: {fileID: 5107160475253080646}
+  - component: {fileID: 432143923335458461}
+  - component: {fileID: 7358373540913461974}
+  - component: {fileID: 6005387542815879841}
   - component: {fileID: 2686952652957502585}
   m_Layer: 0
   m_Name: Door
@@ -123,9 +126,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closed: 1
-  lampless: 0
   proximityDoorPuzzle: 0
-  lightingDistance: 1.5
+--- !u!114 &432143923335458461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107160475253080642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73482a6e8ac8a4d43bbf00c45669eb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openEvents:
+  - {fileID: 7358373540913461974}
+  - {fileID: 6005387542815879841}
+  closeEvents: []
+--- !u!114 &7358373540913461974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107160475253080642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8c61b150c6d75459a98571135c8f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDelay: 0
+  shakeDuration: 3
+  shakeIntensity: 1
+  shakeFrequency: 3
+--- !u!114 &6005387542815879841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107160475253080642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c5fa7c4db36684c9b32043d10bec21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 0}
 --- !u!114 &2686952652957502585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,4 +244,4 @@ MonoBehaviour:
   - {x: -0.42300513, y: -0.046705365, z: 0}
   m_ShapePathHash: 755845508
   m_Mesh: {fileID: 0}
-  m_InstanceId: 171328
+  m_InstanceId: 123376
