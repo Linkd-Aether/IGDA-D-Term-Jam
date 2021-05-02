@@ -21,10 +21,14 @@ namespace Game.Events
         public override void RunEvent()
         {
             player.Freeze();
+
+            foreach (SpriteRenderer sprite in player.GetComponentsInChildren<SpriteRenderer>()) {
+                sprite.sortingOrder += 5;
+            }
+            GetComponentInChildren<SpriteRenderer>().sortingOrder += 5;
+
             StartCoroutine(Utils.UtilFunctions.LerpCoroutine(player.SizeChange, 1f, 2f, 3f));
             spriteAnimator.SetBool("Leaving", true);
         }
-
-
     }
 }
