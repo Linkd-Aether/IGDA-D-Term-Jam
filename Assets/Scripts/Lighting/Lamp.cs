@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Events;
+
 
 namespace Game.Lighting 
 {
@@ -13,10 +15,14 @@ namespace Game.Lighting
         // Components & References
         private static Lantern lantern;
 
+        private LampTrigger lampTrigger;
+
 
         protected override void Awake() {
             lantern = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Lantern>();
             base.Awake();
+
+            lampTrigger = GetComponentInChildren<LampTrigger>();
         }
 
         protected void Start() {
@@ -41,6 +47,12 @@ namespace Game.Lighting
         public void SetProximity(bool state, float distance) {
             proximity = state;
             lightDistance = distance;
+        }
+
+        public override void LightOn()
+        {
+            base.LightOn();
+            if (lampTrigger != null) lampTrigger.OnLit();
         }
     }
 }

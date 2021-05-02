@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GenerateShadowCasters
   - Enemy
+  - FollowCamera
   layers:
   - Default
   - TransparentFX

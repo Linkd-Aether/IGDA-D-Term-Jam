@@ -13,6 +13,7 @@ namespace Game.Utils
             float lerpT = 0;
 
             while (lerpT < 1) {
+                Debug.LogError("LERPING!");
                 lerpT += Time.deltaTime / lerpDuration;
                 lerpT = Mathf.Clamp(lerpT, 0, 1);
                 float value = Mathf.Lerp(startValue, endValue, lerpT);
