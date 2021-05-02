@@ -19,24 +19,21 @@ namespace Game.Lighting
 
 
         protected override void Awake() {
-            lantern = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Lantern>();
-            base.Awake();
-
-            lampTrigger = GetComponentInChildren<LampTrigger>();
-        }
-
-        protected void Start() {
             MAX_INTENSITY = 1f;
             MAX_OUTER_RADIUS = 5f;
+            base.Awake();
+
+            lantern = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Lantern>();
+            lampTrigger = GetComponentInChildren<LampTrigger>();
         }
 
         private void Update()
         {
-            if (Vector2.Distance(lantern.transform.position, this.transform.position) < lightDistance) {
-                if (lantern.isLit) LightOn();
-            } else if (isLit && proximity) {
-                LightOff();
-            }
+            // if (Vector2.Distance(lantern.transform.position, this.transform.position) < lightDistance) {
+            //     if (lantern.isLit) LightOn();
+            // } else if (isLit && proximity) {
+            //     LightOff();
+            // }
         }
 
         private void OnDrawGizmos() {
@@ -53,6 +50,14 @@ namespace Game.Lighting
         {
             base.LightOn();
             if (lampTrigger != null) lampTrigger.OnLit();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other) {
+            lantern.LightableLampsUpdate(this, true);
+        }
+
+        private void OnTriggerExit2D(Collider2D other) {
+            lantern.LightableLampsUpdate(this, false);
         }
     }
 }
