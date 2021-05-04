@@ -113,6 +113,8 @@ namespace Game.Lighting
             private IEnumerator PulseLight() {
                 isLit = true;
                 yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
                 if (fixedOn) {
                     lampTrigger.OnLit();
                 } else {
