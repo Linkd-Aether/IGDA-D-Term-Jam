@@ -70,7 +70,6 @@ namespace Game.Core
             crossMaxAudio = newAudioMaxVolume;
 
             yield return StartCoroutine(UtilFunctions.LerpCoroutine(CrossFade, 1, .5f, fadeTime));
-            yield return StartCoroutine(CrossFadeOutMix(5f));
         }
 
         public IEnumerator CrossFadeOutMix(float fadeTime) {
