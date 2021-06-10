@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Packages/packages-lock.json
+Assets/Resources/Sprites/Tilemap/SpriteAtlas.spriteatlas
+Assets/Resources/Sprites/Tilemap/DarkerSpriteAtlas.spriteatlas
